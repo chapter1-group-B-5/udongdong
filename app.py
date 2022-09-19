@@ -37,8 +37,10 @@ def posts_list():
 
 @app.route('/udongdong/write_page', methods=["GET"])
 def write_page():
+    id = request.args.get('id')
+    pwd = request.args.get('pwd')
 
-   return render_template('write_post.html')
+    return render_template('write_post.html', id=id, pwd=pwd)
 
 @app.route("/udongdong/write", methods=["POST"])
 def write_content():
@@ -50,16 +52,15 @@ def write_content():
     content = request.form['content']
 
     content_doc = {
-        'id': id,
-        'pwd': pwd,
         'img': img,
         'group_name': group_name,
         'address': address,
-        'content': content
+        'content': content,
+        'id': id,
+        'pwd': pwd
     }
 
-    print(content_doc)
-    # db.post_content.insert_one(content_doc)
+    db.post_content.insert_one(content_doc)
 
     # 취합 후 메인 페이지로 이동될 수 있게 변경할 것
     return jsonify({'msg':"작성 완료"})

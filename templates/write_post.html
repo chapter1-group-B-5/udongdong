@@ -56,19 +56,15 @@
         }
     </style>
     <script>
-        // $(document).ready(function () {
-        //     restaurant_info();
-        // });
-
         function contents_upload(){
-            let id = "넘겨받은 아이디";
-            let pwd = "넘겨받은 비밀번호";
-            let img = $('#image_file_input').val();
+            let id = $('#id_value').val();
+            let pwd = $('#pwd_value').val();
+            let img = 'https://cmsphoto.ww-cdn.com/superstatic/1788037/art/default/31394272-29615629.jpg?v=1551977422';
             let group_name = $('#group_name').val();
             let address = $('#address').val();
             let content = $('#write_content').val();
 
-            if(id == "" || pwd == "" || img == "" || group_name == "" || address == "" || content == ""){
+            if(id == "" || pwd == "" || group_name == "" || address == "" || content == ""){
                 alert("기입하지 않은 정보가 있습니다.")
             }
 
@@ -85,8 +81,7 @@
                 },
                 success: function (response) {
                     alert(response["msg"]);
-
-                    location.href = "/udongdong/view_content";
+                    location.href = "/";
                 }
             })
 
@@ -99,13 +94,12 @@
 
     <div class="row row-cols-1 row-cols-md-2 g-4">
         <div class="upload_image_box">
-<!--            <h1>이미지 업로드</h1>-->
             <input type="file" name="file" id="image_file_input" accept="image/*"><hr>
-<!--            <img src="${imgae}">-->
         </div>
         <div class="upload_post_box">
-<!--            <h1>소개글 업로드</h1>-->
             <div class="mb-3">
+                <input type="hidden" id="id_value" value="{{id}}">
+                <input type="hidden" id="pwd_value" value="{{pwd}}">
                 <label for="exampleFormControlInput1" class="form-label">동호회 이름</label>
                 <input type="text" class="form-control" id="group_name" placeholder="이름 입력">
                 <label for="exampleFormControlInput2" class="form-label">지역</label>
