@@ -34,8 +34,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: right;
-
+      align-items: center;
     }
     .mytitle > button {
       width:200px;
@@ -83,14 +82,6 @@
     .mybtn > button {
       margin-right: 10px;
     }
-    h1.relative {
-        position: relative;
-        left:100px;
-    }
-    h6.relative {
-        position: relative;
-        left:100px;
-    }
   </style>
 
   <script>
@@ -107,10 +98,13 @@
 
 <body>
 
+    <div class="write_btn">
+        <button onclick="open_box()">영화 기록하기</button>
+    </div>
+
     <div class="mytitle">
-    <h1 class="relative" style="display:inline;">우동동</h1>
-        <h6 class="relative" style="display:inline;">우리 동네 동호회</h6>
-        <button onclick="open_box()">글쓰기</button>
+    <h1>우동동</h1>
+      <h6>우리 동네 동호회</h6>
     </div>
 
     <div class="mypost" id="post-box">
