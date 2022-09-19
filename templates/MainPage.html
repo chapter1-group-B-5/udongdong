@@ -85,49 +85,12 @@
   </style>
 
   <script>
-    $(document).ready(function(){
-        posts_list();
-    })
 
     function open_box() {
       $('#post-box').show()
     }
     function close_box() {
       $('#post-box').hide()
-    }
-
-    function posts_list(){
-        $.ajax({
-                type: "GET",
-                url: "/udongdong/posts",
-                data: {},
-                success: function (response) {
-                    let posts_list = response['posts_list'];
-                    let temp_html = ``
-
-                    for(let i = 0 ; i < posts_list.length ; i++){
-                        let img = posts_list[i]['img'];
-                        let group_name = posts_list[i]['group_name'];
-                        let address = posts_list[i]['address'];
-                        let content = posts_list[i]['content'];
-
-                        temp_html = `<div class="col">
-                                        <div class="card" style="width: 18rem;">
-                                            <img src="${img}" class="card-img-top" alt="..." weight="300" height="400">
-                                            <div class="card-body">
-                                                <h5 class="card-title">${group_name}</h5>
-                                                <p class="card-text">${group_name} 동아리입니다.</p>
-                                                <a href="/udongdong/view_content?group_name=${group_name}&img=${img}&address=${address}&content=${content}" class="btn btn-primary">소개글 보러가기</a>
-                                            </div>
-                                        </div>
-                                    </div>`;
-
-                        $('#cards-box').append(temp_html);
-
-                    }
-
-                }
-            })
     }
   </script>
 
