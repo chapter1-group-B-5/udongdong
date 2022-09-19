@@ -1,0 +1,186 @@
+Index: templates/MainPage.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!doctype html>\n<html lang=\"en\">\n\n<head>\n\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n    <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\"\n    integrity=\"sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC\" crossorigin=\"anonymous\">\n    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>\n    <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js\"\n    integrity=\"sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM\"\n    crossorigin=\"anonymous\"></script>\n\n<title>MainPage</title>\n\n  <link href=\"https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap\" rel=\"stylesheet\">\n\n  <style>\n    * {\n        font-family: 'Gowun Dodum', sans-serif;\n    }\n    .mytitle{\n\n      width:100%;\n      height:350px;\n\n      background-image:linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(\"https://www.seouledu.or.kr/images/contents/business03_imgTitleBox.jpg\");\n      background-position: center;\n      background-size: cover;\n\n      color:white;\n\n      display: flex;\n      flex-direction: column;\n      justify-content: center;\n      align-items: center;\n    }\n    .mytitle > button {\n      width:200px;\n      height:50px;\n\n      background-color: transparent;\n      color:white;\n\n      border-radius:50px;\n\n      border: 1px solid white;\n\n      margin-top: 10px;\n    }\n    .mytitle > button:hover {\n      border: 2px solid white;\n    }\n    .mycomment {\n      color: gray;\n    }\n    .wrap {\n      max-width: 1200px;\n      width: 95%;\n      margin: 20px auto 0px auto;\n    }\n    .mypost {\n      max-width: 500px;\n      width: 95%;\n\n      margin: 20px auto 0px auto;\n\n      box-shadow: 0px 0px 3px 0px gray;\n      padding: 20px;\n\n      display: none;\n    }\n    .mybtn {\n      display: flex;\n      flex-direction: row;\n      justify-content: center;\n      align-items: center;\n\n      margin-top:10px;\n    }\n    .mybtn > button {\n      margin-right: 10px;\n    }\n  </style>\n\n  <script>\n\n    function open_box() {\n      $('#post-box').show()\n    }\n    function close_box() {\n      $('#post-box').hide()\n    }\n  </script>\n\n</head>\n\n<body>\n\n    <div class=\"write_btn\">\n        <button onclick=\"open_box()\">영화 기록하기</button>\n    </div>\n\n    <div class=\"mytitle\">\n    <h1>우동동</h1>\n      <h6>우리 동네 동호회</h6>\n    </div>\n\n    <div class=\"mypost\" id=\"post-box\">\n        <div class=\"form-floating mb-3\">\n          <input type=\"email\" class=\"form-control\" id=\"url\" placeholder=\"name@example.com\">\n          <label for=\"floatingInput\">영화URL</label>\n        </div>\n\n        <div class=\"form-floating\">\n          <textarea class=\"form-control\" placeholder=\"Leave a comment here\" id=\"floatingTextarea\"\n          style=\"height: 100px\"></textarea>\n          <label for=\"floatingTextarea\">코멘트</label>\n        </div>\n\n        <div class=\"mybtn\">\n          <button type=\"button\" class=\"btn btn-dark\">기록하기</button>\n          <button onclick=\"close_box()\" type=\"button\" class=\"btn btn-outline-dark\">닫기</button>\n        </div>\n    </div>\n\n    <div class=\"wrap\">\n        <div id=\"cards-box\" class=\"row row-cols-1 row-cols-md-3 g-3\">\n            <div class=\"col\">\n                <div class=\"card\" style=\"width: 18rem;\">\n                    <img src=\"https://res.cloudinary.com/linkareer/image/fetch/f_auto/https://s3.ap-northeast-2.amazonaws.com/media.linkareer.com/activity_manager/posters/2020-02-220216583113920_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg\" class=\"card-img-top\" alt=\"...\" weight=\"300\" height=\"400\">\n                    <div class=\"card-body\">\n                        <h5 class=\"card-title\">볼링 동아리 S.A.B</h5>\n                        <p class=\"card-text\">볼링 동아리입니다.</p>\n                        <a href=\"#\" class=\"btn btn-primary\">소개글 보러가기</a>\n                    </div>\n                </div>\n            </div>\n            <div class=\"col\">\n                <div class=\"card\" style=\"width: 18rem;\">\n                    <img src=\"https://t1.daumcdn.net/cfile/tistory/9924D0335A276E401D\" class=\"card-img-top\" alt=\"...\" weight=\"300\" height=\"400\">\n                    <div class=\"card-body\">\n                        <h5 class=\"card-title\">포커스 클럽</h5>\n                        <p class=\"card-text\">사진 동아리입니다.</p>\n                        <a href=\"#\" class=\"btn btn-primary\">소개글 보러가기</a>\n                    </div>\n                </div>\n            </div>\n            <div class=\"col\">\n                <div class=\"card\" style=\"width: 18rem;\">\n                    <img src=\"http://www.wngo.kr/imgdata/wngo_kr/201710/2017101758139715.jpg\" class=\"card-img-top\" alt=\"...\" weight=\"300\" height=\"400\">\n                    <div class=\"card-body\">\n                        <h5 class=\"card-title\">동네밤</h5>\n                        <p class=\"card-text\">동호회 네트워크입니다.</p>\n                        <a href=\"#\" class=\"btn btn-primary\">소개글 보러가기</a>\n                    </div>\n                </div>\n            </div>\n            <div class=\"col\">\n                <div class=\"card\" style=\"width: 18rem;\">\n                    <img src=\"http://dn.joongdo.co.kr/mnt/images/file/2018y/10m/26d/2018102501002360100103811.jpg\" class=\"card-img-top\" alt=\"...\" weight=\"300\" height=\"400\">\n                    <div class=\"card-body\">\n                        <h5 class=\"card-title\">함께걷다</h5>\n                        <p class=\"card-text\">산책 동아리입니다.</p>\n                        <a href=\"#\" class=\"btn btn-primary\">소개글 보러가기</a>\n                    </div>\n                </div>\n            </div>\n            <div class=\"col\">\n                <div class=\"card\" style=\"width: 18rem;\">\n                    <img src=\"https://bcc.bucheon.go.kr/site/inc/thumbnail/imgload?path=/board/753&filename=%EC%8A%A4%ED%85%9D%EC%97%85%20%EA%B0%95%EC%8A%B5%20%EB%AA%A8%EC%A7%91%286%EC%B0%A8%29.jpg\" class=\"card-img-top\" alt=\"...\" weight=\"300\" height=\"400\">\n                    <div class=\"card-body\">\n                        <h5 class=\"card-title\">스텝업</h5>\n                        <p class=\"card-text\">댄스스포츠 동호회입니다.</p>\n                        <a href=\"#\" class=\"btn btn-primary\">소개글 보러가기</a>\n                    </div>\n                </div>\n            </div>\n            <div class=\"col\">\n                <div class=\"card\" style=\"width: 18rem;\">\n                    <img src=\"https://cdn.ngetnews.com/news/photo/202006/302119_13037_1558.jpg\" class=\"card-img-top\" alt=\"...\" weight=\"300\" height=\"400\">\n                    <div class=\"card-body\">\n                        <h5 class=\"card-title\">위댄스캠프</h5>\n                        <p class=\"card-text\">춤 동호회 모임입니다. </p>\n                        <a href=\"#\" class=\"btn btn-primary\">소개글 보러가기</a>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</body>\n\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/templates/MainPage.html b/templates/MainPage.html
+--- a/templates/MainPage.html	(revision dab67bc96858f8d7f81a98d2da20da2bf0803b92)
++++ b/templates/MainPage.html	(date 1663595019170)
+@@ -85,7 +85,6 @@
+   </style>
+ 
+   <script>
+-
+     function open_box() {
+       $('#post-box').show()
+     }
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ProjectRootManager\" version=\"2\" project-jdk-name=\"Python 3.8\" project-jdk-type=\"Python SDK\" />\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision dab67bc96858f8d7f81a98d2da20da2bf0803b92)
++++ b/.idea/misc.xml	(date 1663594832656)
+@@ -1,4 +1,4 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.8" project-jdk-type="Python SDK" />
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.10 (1_udongdong) (2)" project-jdk-type="Python SDK" />
+ </project>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"5e2302a8-0507-4466-acaa-aedf78580e77\" name=\"변경\" comment=\"\" />\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"HTML File\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"MarkdownSettingsMigration\">\n    <option name=\"stateVersion\" value=\"1\" />\n  </component>\n  <component name=\"ProjectId\" id=\"2EyaJGcfEeEunu7Urmeja2rz409\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"DefaultHtmlFileTemplate\": \"HTML File\",\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\n    \"WebServerToolWindowFactoryState\": \"false\",\n    \"last_opened_file_path\": \"/Users/joungeun/Desktop/sparta/1_udongdong\",\n    \"node.js.detected.package.eslint\": \"true\",\n    \"node.js.detected.package.tslint\": \"true\",\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\n    \"node.js.selected.package.tslint\": \"(autodetect)\"\n  }\n<<<<<<< HEAD\n}</component>\n  <component name=\"RunManager\" selected=\"Python.app\">\n    <configuration name=\"write_post.html\" type=\"JavascriptDebugType\" temporary=\"true\" nameIsGenerated=\"true\" uri=\"http://localhost:63342/udongdong/templates/write_post.html\" useBuiltInWebServerPort=\"true\">\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"app\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"1_udongdong\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/app.py\" />\n      <option name=\"PARAMETERS\" value=\"\" />\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\n      <option name=\"MODULE_MODE\" value=\"false\" />\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\n      <option name=\"INPUT_FILE\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Python.app\" />\n        <item itemvalue=\"JavaScript 디버그.write_post.html\" />\n      </list>\n    </recent_temporary>\n  </component>\n=======\n}]]></component>\n>>>>>>> 122373faeaf2be54859eabd24cca79d9ced85d50\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"애플리케이션 수준\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"디폴트 작업\">\n      <changelist id=\"5e2302a8-0507-4466-acaa-aedf78580e77\" name=\"변경\" comment=\"\" />\n      <created>1663570205328</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1663570205328</updated>\n      <workItem from=\"1663570210181\" duration=\"931000\" />\n      <workItem from=\"1663575307110\" duration=\"10028000\" />\n    </task>\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"com.intellij.coverage.CoverageDataManagerImpl\">\n    <SUITE FILE_PATH=\"coverage/udongdong$app.coverage\" NAME=\"app 커버리지 결과\" MODIFIED=\"1663586540359\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision dab67bc96858f8d7f81a98d2da20da2bf0803b92)
++++ b/.idea/workspace.xml	(date 1663595019397)
+@@ -4,7 +4,12 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="5e2302a8-0507-4466-acaa-aedf78580e77" name="변경" comment="" />
++    <list default="true" id="5e2302a8-0507-4466-acaa-aedf78580e77" name="변경" comment="">
++      <change beforePath="$PROJECT_DIR$/.idea/1_udongdong.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/1_udongdong.iml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/templates/MainPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/MainPage.html" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -29,57 +34,56 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "DefaultHtmlFileTemplate": "HTML File",
+-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "WebServerToolWindowFactoryState": "false",
+-    "last_opened_file_path": "/Users/joungeun/Desktop/sparta/1_udongdong",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)"
+-  }
+-<<<<<<< HEAD
+-}</component>
+-  <component name="RunManager" selected="Python.app">
+-    <configuration name="write_post.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/udongdong/templates/write_post.html" useBuiltInWebServerPort="true">
+-      <method v="2" />
+-    </configuration>
+-    <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+-      <module name="1_udongdong" />
+-      <option name="INTERPRETER_OPTIONS" value="" />
+-      <option name="PARENT_ENVS" value="true" />
+-      <envs>
+-        <env name="PYTHONUNBUFFERED" value="1" />
+-      </envs>
+-      <option name="SDK_HOME" value="" />
+-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+-      <option name="IS_MODULE_SDK" value="true" />
+-      <option name="ADD_CONTENT_ROOTS" value="true" />
+-      <option name="ADD_SOURCE_ROOTS" value="true" />
+-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app.py" />
+-      <option name="PARAMETERS" value="" />
+-      <option name="SHOW_COMMAND_LINE" value="false" />
+-      <option name="EMULATE_TERMINAL" value="false" />
+-      <option name="MODULE_MODE" value="false" />
+-      <option name="REDIRECT_INPUT" value="false" />
+-      <option name="INPUT_FILE" value="" />
+-      <method v="2" />
+-    </configuration>
+-    <recent_temporary>
+-      <list>
+-        <item itemvalue="Python.app" />
+-        <item itemvalue="JavaScript 디버그.write_post.html" />
+-      </list>
+-    </recent_temporary>
+-  </component>
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
++    &quot;last_opened_file_path&quot;: &quot;/Users/joungeun/Desktop/sparta/1_udongdong&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
++  }
++&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
++}&lt;/component&gt;
++  &lt;component name=&quot;RunManager&quot; selected=&quot;Python.app&quot;&gt;
++    &lt;configuration name=&quot;write_post.html&quot; type=&quot;JavascriptDebugType&quot; temporary=&quot;true&quot; nameIsGenerated=&quot;true&quot; uri=&quot;http://localhost:63342/udongdong/templates/write_post.html&quot; useBuiltInWebServerPort=&quot;true&quot;&gt;
++      &lt;method v=&quot;2&quot; /&gt;
++    &lt;/configuration&gt;
++    &lt;configuration name=&quot;app&quot; type=&quot;PythonConfigurationType&quot; factoryName=&quot;Python&quot; temporary=&quot;true&quot; nameIsGenerated=&quot;true&quot;&gt;
++      &lt;module name=&quot;1_udongdong&quot; /&gt;
++      &lt;option name=&quot;INTERPRETER_OPTIONS&quot; value=&quot;&quot; /&gt;
++      &lt;option name=&quot;PARENT_ENVS&quot; value=&quot;true&quot; /&gt;
++      &lt;envs&gt;
++        &lt;env name=&quot;PYTHONUNBUFFERED&quot; value=&quot;1&quot; /&gt;
++      &lt;/envs&gt;
++      &lt;option name=&quot;SDK_HOME&quot; value=&quot;&quot; /&gt;
++      &lt;option name=&quot;WORKING_DIRECTORY&quot; value=&quot;/Users/joungeun/Desktop/sparta/1_udongdong&quot; /&gt;
++      &lt;option name=&quot;IS_MODULE_SDK&quot; value=&quot;true&quot; /&gt;
++      &lt;option name=&quot;ADD_CONTENT_ROOTS&quot; value=&quot;true&quot; /&gt;
++      &lt;option name=&quot;ADD_SOURCE_ROOTS&quot; value=&quot;true&quot; /&gt;
++      &lt;EXTENSION ID=&quot;PythonCoverageRunConfigurationExtension&quot; runner=&quot;coverage.py&quot; /&gt;
++      &lt;option name=&quot;SCRIPT_NAME&quot; value=&quot;/Users/joungeun/Desktop/sparta/1_udongdong/app.py&quot; /&gt;
++      &lt;option name=&quot;PARAMETERS&quot; value=&quot;&quot; /&gt;
++      &lt;option name=&quot;SHOW_COMMAND_LINE&quot; value=&quot;false&quot; /&gt;
++      &lt;option name=&quot;EMULATE_TERMINAL&quot; value=&quot;false&quot; /&gt;
++      &lt;option name=&quot;MODULE_MODE&quot; value=&quot;false&quot; /&gt;
++      &lt;option name=&quot;REDIRECT_INPUT&quot; value=&quot;false&quot; /&gt;
++      &lt;option name=&quot;INPUT_FILE&quot; value=&quot;&quot; /&gt;
++      &lt;method v=&quot;2&quot; /&gt;
++    &lt;/configuration&gt;
++    &lt;recent_temporary&gt;
++      &lt;list&gt;
++        &lt;item itemvalue=&quot;Python.app&quot; /&gt;
++        &lt;item itemvalue=&quot;JavaScript 디버그.write_post.html&quot; /&gt;
++      &lt;/list&gt;
++    &lt;/recent_temporary&gt;
++  &lt;/component&gt;
+ =======
+-}]]></component>
+->>>>>>> 122373faeaf2be54859eabd24cca79d9ced85d50
++}</component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="디폴트 작업">
+Index: .idea/1_udongdong.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<module type=\"PYTHON_MODULE\" version=\"4\">\n  <component name=\"NewModuleRootManager\">\n    <content url=\"file://$MODULE_DIR$\">\n      <excludeFolder url=\"file://$MODULE_DIR$/venv\" />\n    </content>\n    <orderEntry type=\"jdk\" jdkName=\"Python 3.8\" jdkType=\"Python SDK\" />\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\n  </component>\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/1_udongdong.iml b/.idea/1_udongdong.iml
+--- a/.idea/1_udongdong.iml	(revision dab67bc96858f8d7f81a98d2da20da2bf0803b92)
++++ b/.idea/1_udongdong.iml	(date 1663594832625)
+@@ -4,7 +4,7 @@
+     <content url="file://$MODULE_DIR$">
+       <excludeFolder url="file://$MODULE_DIR$/venv" />
+     </content>
+-    <orderEntry type="jdk" jdkName="Python 3.8" jdkType="Python SDK" />
++    <orderEntry type="inheritedJdk" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+ </module>
+\ No newline at end of file
