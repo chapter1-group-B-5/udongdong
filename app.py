@@ -11,6 +11,7 @@ def home():
     # 취합 후 루트 html 주소 변경
    return render_template('write_post.html')
 
+
 @app.route("/udongdong/write", methods=["POST"])
 def write_content():
     id = request.form['id']
@@ -34,6 +35,7 @@ def write_content():
 
     # 취합 후 메인 페이지로 이동될 수 있게 변경할 것
     return jsonify({'msg':"작성 완료"})
+
 
 @app.route('/udongdong/view_content', methods=["GET"])
 def view_content():
