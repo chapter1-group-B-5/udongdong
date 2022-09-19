@@ -6,189 +6,267 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
 
-<title>MainPage</title>
+    <title>MainPage</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 
-  <style>
-    * {
-        font-family: 'Gowun Dodum', sans-serif;
-    }
-    .mytitle{
+    <style>
+        * {
+            font-family: 'Gowun Dodum', sans-serif;
+        }
 
-      width:100%;
-      height:350px;
+        .mytitle {
 
-      background-image:linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url("https://www.seouledu.or.kr/images/contents/business03_imgTitleBox.jpg");
-      background-position: center;
-      background-size: cover;
+            width: 100%;
+            height: 350px;
 
-      color:white;
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://www.seouledu.or.kr/images/contents/business03_imgTitleBox.jpg");
+            background-position: center;
+            background-size: cover;
 
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    .mytitle > button {
-      width:200px;
-      height:50px;
+            color: white;
 
-      background-color: transparent;
-      color:white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
-      border-radius:50px;
+        .mytitle > button {
+            width: 200px;
+            height: 50px;
 
-      border: 1px solid white;
+            background-color: transparent;
+            color: white;
 
-      margin-top: 10px;
-    }
-    .mytitle > button:hover {
-      border: 2px solid white;
-    }
-    .mycomment {
-      color: gray;
-    }
-    .wrap {
-      max-width: 1200px;
-      width: 95%;
-      margin: 20px auto 0px auto;
-    }
-    .mypost {
-      max-width: 500px;
-      width: 95%;
+            border-radius: 50px;
 
-      margin: 20px auto 0px auto;
+            border: 1px solid white;
 
-      box-shadow: 0px 0px 3px 0px gray;
-      padding: 20px;
+            margin-top: 10px;
+        }
 
-      display: none;
-    }
-    .mybtn {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
+        .mytitle > button:hover {
+            border: 2px solid white;
+        }
 
-      margin-top:10px;
-    }
-    .mybtn > button {
-      margin-right: 10px;
-    }
-  </style>
+        .mycomment {
+            color: gray;
+        }
 
-  <script>
+        .wrap {
+            max-width: 1200px;
+            width: 95%;
+            margin: 20px auto 0px auto;
+        }
 
-    function open_box() {
-      $('#post-box').show()
-    }
-    function close_box() {
-      $('#post-box').hide()
-    }
-  </script>
+        .mypost {
+            max-width: 500px;
+            width: 95%;
+
+            margin: 20px auto 0px auto;
+
+            box-shadow: 0px 0px 3px 0px gray;
+            padding: 20px;
+
+            display: none;
+        }
+
+        .mybtn {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+
+            margin-top: 10px;
+        }
+
+        .mybtn > button {
+            margin-right: 10px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function(){
+            post_list();
+        })
+
+
+        function open_box() {
+            $('#post-box').show()
+        }
+
+        function close_box() {
+            $('#post-box').hide()
+        }
+
+        function open_post_content(){
+            alert("확인");
+        }
+
+        function post_list(){
+            $.ajax({
+                type: "GET",
+                url: "/udongdong/posts",
+                data: {},
+                success: function (response) {
+                    let posts_list = response['posts_list']
+
+                    for(let i = 0 ; i < posts_list.length ; i++){
+                        let img = posts_list[i]['img']
+                        let group_name = posts_list[i]['group_name']
+                        let address = posts_list[i]['address']
+                        let content = posts_list[i]['content']
+
+                        let temp_html = `<div class="col">
+                                            <div class="card" style="width: 18rem;">
+                                                <img src="${img}"
+                                                     class="card-img-top" alt="..." weight="300" height="400">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">${group_name}</h5>
+                                                    <p class="card-text">${group_name} 동아리입니다.</p>
+                                                    <a href="/udongdong/view_content?group_name=${group_name}&address=${address}&content=${content}&img=${img}" class="btn btn-primary">소개글 보러가기</a>
+                                                </div>
+                                            </div>
+                                        </div>`;
+
+                        $('#cards-box').append(temp_html);
+                    }
+                }
+            })
+        }
+    </script>
 
 </head>
 
 <body>
 
-    <div class="write_btn">
-        <button onclick="open_box()">영화 기록하기</button>
-    </div>
+<div class="write_btn">
+    <button onclick="open_box()">영화 기록하기</button>
+</div>
 
-    <div class="mytitle">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">로고</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/udongdong/write_page">글 작성</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">로그아웃</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<div class="mytitle">
     <h1>우동동</h1>
-      <h6>우리 동네 동호회</h6>
+    <h6>우리 동네 동호회</h6>
+</div>
+
+<div class="mypost" id="post-box">
+    <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="url" placeholder="name@example.com">
+        <label for="floatingInput">영화URL</label>
     </div>
 
-    <div class="mypost" id="post-box">
-        <div class="form-floating mb-3">
-          <input type="email" class="form-control" id="url" placeholder="name@example.com">
-          <label for="floatingInput">영화URL</label>
-        </div>
-
-        <div class="form-floating">
+    <div class="form-floating">
           <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
-          style="height: 100px"></textarea>
-          <label for="floatingTextarea">코멘트</label>
-        </div>
-
-        <div class="mybtn">
-          <button type="button" class="btn btn-dark">기록하기</button>
-          <button onclick="close_box()" type="button" class="btn btn-outline-dark">닫기</button>
-        </div>
+                    style="height: 100px"></textarea>
+        <label for="floatingTextarea">코멘트</label>
     </div>
 
-    <div class="wrap">
-        <div id="cards-box" class="row row-cols-1 row-cols-md-3 g-3">
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://res.cloudinary.com/linkareer/image/fetch/f_auto/https://s3.ap-northeast-2.amazonaws.com/media.linkareer.com/activity_manager/posters/2020-02-220216583113920_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" class="card-img-top" alt="..." weight="300" height="400">
-                    <div class="card-body">
-                        <h5 class="card-title">볼링 동아리 S.A.B</h5>
-                        <p class="card-text">볼링 동아리입니다.</p>
-                        <a href="#" class="btn btn-primary">소개글 보러가기</a>
-                    </div>
+    <div class="mybtn">
+        <button type="button" class="btn btn-dark">기록하기</button>
+        <button onclick="close_box()" type="button" class="btn btn-outline-dark">닫기</button>
+    </div>
+</div>
+
+<div class="wrap">
+    <div id="cards-box" class="row row-cols-1 row-cols-md-3 g-3">
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+                <img src="https://res.cloudinary.com/linkareer/image/fetch/f_auto/https://s3.ap-northeast-2.amazonaws.com/media.linkareer.com/activity_manager/posters/2020-02-220216583113920_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg"
+                     class="card-img-top" alt="..." weight="300" height="400">
+                <div class="card-body">
+                    <h5 class="card-title">볼링 동아리 S.A.B</h5>
+                    <p class="card-text">볼링 동아리입니다.</p>
+                    <a href="/udongdong/view_content?group_name=볼링 동아리 S.A.B" class="btn btn-primary">소개글 보러가기</a>
                 </div>
             </div>
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://t1.daumcdn.net/cfile/tistory/9924D0335A276E401D" class="card-img-top" alt="..." weight="300" height="400">
-                    <div class="card-body">
-                        <h5 class="card-title">포커스 클럽</h5>
-                        <p class="card-text">사진 동아리입니다.</p>
-                        <a href="#" class="btn btn-primary">소개글 보러가기</a>
-                    </div>
+        </div>
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+                <img src="https://t1.daumcdn.net/cfile/tistory/9924D0335A276E401D" class="card-img-top" alt="..."
+                     weight="300" height="400">
+                <div class="card-body">
+                    <h5 class="card-title">포커스 클럽</h5>
+                    <p class="card-text">사진 동아리입니다.</p>
+                    <a href="#" class="btn btn-primary">소개글 보러가기</a>
                 </div>
             </div>
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <img src="http://www.wngo.kr/imgdata/wngo_kr/201710/2017101758139715.jpg" class="card-img-top" alt="..." weight="300" height="400">
-                    <div class="card-body">
-                        <h5 class="card-title">동네밤</h5>
-                        <p class="card-text">동호회 네트워크입니다.</p>
-                        <a href="#" class="btn btn-primary">소개글 보러가기</a>
-                    </div>
+        </div>
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+                <img src="http://www.wngo.kr/imgdata/wngo_kr/201710/2017101758139715.jpg" class="card-img-top" alt="..."
+                     weight="300" height="400">
+                <div class="card-body">
+                    <h5 class="card-title">동네밤</h5>
+                    <p class="card-text">동호회 네트워크입니다.</p>
+                    <a href="#" class="btn btn-primary">소개글 보러가기</a>
                 </div>
             </div>
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <img src="http://dn.joongdo.co.kr/mnt/images/file/2018y/10m/26d/2018102501002360100103811.jpg" class="card-img-top" alt="..." weight="300" height="400">
-                    <div class="card-body">
-                        <h5 class="card-title">함께걷다</h5>
-                        <p class="card-text">산책 동아리입니다.</p>
-                        <a href="#" class="btn btn-primary">소개글 보러가기</a>
-                    </div>
+        </div>
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+                <img src="http://dn.joongdo.co.kr/mnt/images/file/2018y/10m/26d/2018102501002360100103811.jpg"
+                     class="card-img-top" alt="..." weight="300" height="400">
+                <div class="card-body">
+                    <h5 class="card-title">함께걷다</h5>
+                    <p class="card-text">산책 동아리입니다.</p>
+                    <a href="#" class="btn btn-primary">소개글 보러가기</a>
                 </div>
             </div>
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://bcc.bucheon.go.kr/site/inc/thumbnail/imgload?path=/board/753&filename=%EC%8A%A4%ED%85%9D%EC%97%85%20%EA%B0%95%EC%8A%B5%20%EB%AA%A8%EC%A7%91%286%EC%B0%A8%29.jpg" class="card-img-top" alt="..." weight="300" height="400">
-                    <div class="card-body">
-                        <h5 class="card-title">스텝업</h5>
-                        <p class="card-text">댄스스포츠 동호회입니다.</p>
-                        <a href="#" class="btn btn-primary">소개글 보러가기</a>
-                    </div>
+        </div>
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+                <img src="https://bcc.bucheon.go.kr/site/inc/thumbnail/imgload?path=/board/753&filename=%EC%8A%A4%ED%85%9D%EC%97%85%20%EA%B0%95%EC%8A%B5%20%EB%AA%A8%EC%A7%91%286%EC%B0%A8%29.jpg"
+                     class="card-img-top" alt="..." weight="300" height="400">
+                <div class="card-body">
+                    <h5 class="card-title">스텝업</h5>
+                    <p class="card-text">댄스스포츠 동호회입니다.</p>
+                    <a href="#" class="btn btn-primary">소개글 보러가기</a>
                 </div>
             </div>
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://cdn.ngetnews.com/news/photo/202006/302119_13037_1558.jpg" class="card-img-top" alt="..." weight="300" height="400">
-                    <div class="card-body">
-                        <h5 class="card-title">위댄스캠프</h5>
-                        <p class="card-text">춤 동호회 모임입니다. </p>
-                        <a href="#" class="btn btn-primary">소개글 보러가기</a>
-                    </div>
+        </div>
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+                <img src="https://cdn.ngetnews.com/news/photo/202006/302119_13037_1558.jpg" class="card-img-top"
+                     alt="..." weight="300" height="400">
+                <div class="card-body">
+                    <h5 class="card-title">위댄스캠프</h5>
+                    <p class="card-text">춤 동호회 모임입니다. </p>
+                    <a href="#" class="btn btn-primary">소개글 보러가기</a>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </body>
 
 </html>
