@@ -12,146 +12,112 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
 
-    <title>맛집 찾기 두번째 페이지</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Dokdo&display=swap" rel="stylesheet">
+    <title>글 작성 페이지</title>
 
     <style>
-        .mytitle {
+        .header_image {
             width: 100%;
             height: 250px;
 
-            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://cdn.huffingtonpost.kr/news/photo/201811/77299_146809.jpeg');
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://www.seouledu.or.kr/images/contents/business03_imgTitleBox.jpg');
             background-position: center;
             background-size: cover;
 
-            color: white;
-
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
             justify-content: center;
         }
+
+        .row{
+            width: 1100px;
+            height: 500px;
+            max-width: 1000px;
+            margin: 20px auto 0px auto;
+            padding: 20px;
+        }
+
+        .upload_image_box{
+            float: left;
+
+            border: 1px solid;
+            padding: 20px;
+        }
+
+        .upload_post_box{
+            float: right;
+
+            border: 1px solid;
+        }
+
+        textarea{
+            width: 450px;
+            height: 300px;
+        }
     </style>
     <script>
-        $(document).ready(function () {
-            restaurant_info();
-        });
+        // $(document).ready(function () {
+        //     restaurant_info();
+        // });
 
-        function restaurant_info() {
-            let place_name = $('#hidden_place_name').val();
+        function contents_upload(){
+            let id = "넘겨받은 아이디";
+            let pwd = "넘겨받은 비밀번호";
+            let img = $('#image_file_input').val();
+            let group_name = $('#group_name').val();
+            let address = $('#address').val();
+            let content = $('#write_content').val();
 
-            $.ajax({
-                type: "GET",
-                url: "/restaurant_info?place_name=" + place_name,
-                data: {},
-                success: function (response) {
-                    // alert(response)
-                    let restaurant_info = response['restaurants_doc'];
-                    let temp_html = ``;
-
-                    for (let i = 0; i < restaurant_info.length; i++) {
-                        let name = restaurant_info[i]['name'];
-                        let open_close = restaurant_info[i]['open_close'];
-                        let star_score = restaurant_info[i]['star_score'];
-                        let average_visitor_review = restaurant_info[i]['average_visitor_review'];
-                        let average_blog_review = restaurant_info[i]['average_blog_review'];
-                        let img_url1 = restaurant_info[i]['restaurant_img_url1'];
-                        let img_url2 = restaurant_info[i]['restaurant_img_url2'];
-                        let img_url3 = restaurant_info[i]['restaurant_img_url3'];
-                        let location = restaurant_info[i]['restaurant_location'];
-                        let restaurant_url = restaurant_info[i]['restaurant_url'];
-
-                        if (name != undefined) {
-                            temp_html = `<div class="card">
-                                            <a href="${restaurant_url}">
-                                                <div class="img_cards">
-                                                    <img src="${img_url1}" style='width:90px; height:90px;' class="card-img-top" alt="...">
-                                                    <img src="${img_url2}" style='width:90px; height:90px;' class="card-img-top" alt="...">
-                                                    <img src="${img_url3}" style='width:90px; height:90px;' class="card-img-top" alt="...">
-                                                </div>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">${name}</h5>
-                                                    <h7 class="card-title">${open_close}</h7><br><h7 class="card-title">⭐${star_score}</h7><br><h7 class="card-title">${average_visitor_review}</h7><br><h7 class="card-title">${average_blog_review}</h7>
-                                                    <p class="card-text">${location}</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    <small class="text-muted">메뉴 input 고려</small>
-                                                </div>
-                                            </a>
-                                             <!-- Button trigger modal -->
-                                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    댓글확인하기
-                                                </button>
-                                             <!-- Modal -->
-                                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                                     aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="input-group mb-3">
-                                                                    <input id="input_comment"
-                                                                           type="text" class="form-control" placeholder="Recipient's username"
-                                                                           aria-label="Recipient's username" aria-describedby="button-addon2">
-                                                                    <button onclick="mycomment()" class="btn btn-outline-secondary" type="button"
-                                                                            id="button-addon2">댓글입력
-                                                                    </button>
-                                                                </div>
-                                                                <div id="cmt-wrap">
-
-                                                            </div>
-                                                                <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                         `;
-                        }
-                        $('#mycards').append(temp_html);
-                    }
-                }
-            })
-        }
-
-        function mycomment() {
-            comment_contents = $('#input_comment').val()
-            let temp_html = `<div class="comment">
-                                <div class="comment-body">
-                                    ${comment_contents}
-                                </div>
-                            </div>`
-            $('#cmt_wrap').append(temp_html)
-        }
-
-        function save_comment() {
-            let name = $('#name').val()
-            let comment = $('#comment').val()
+            if(id == "" || pwd == "" || img == "" || group_name == "" || address == "" || content == ""){
+                alert("기입하지 않은 정보가 있습니다.")
+            }
 
             $.ajax({
-                type: 'POST',
-                url: '/homework',
-                data: {name_give: name, comment_give: comment},
+                type: "POST",
+                url: "/udongdong/write",
+                data: {
+                    id:id,
+                    pwd:pwd,
+                    img:img,
+                    group_name:group_name,
+                    address:address,
+                    content:content
+                },
                 success: function (response) {
-                    alert(response['msg'])
-                    window.location.reload()
+                    alert(response["msg"]);
+
+                    location.href = "/udongdong/view_content";
                 }
             })
+
         }
     </script>
 </head>
 
 <body>
+    <div class="header_image"></div>
 
-
-</div>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="upload_image_box">
+<!--            <h1>이미지 업로드</h1>-->
+            <input type="file" name="file" id="image_file_input" accept="image/*"><hr>
+<!--            <img src="${imgae}">-->
+        </div>
+        <div class="upload_post_box">
+<!--            <h1>소개글 업로드</h1>-->
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">동호회 이름</label>
+                <input type="text" class="form-control" id="group_name" placeholder="이름 입력">
+                <label for="exampleFormControlInput2" class="form-label">지역</label>
+                <input type="text" class="form-control" id="address" placeholder="지역 입력">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">작성글</label>
+                <textarea class="form-control" id="write_content" rows="3"></textarea>
+            </div>
+            <button type="button" onclick="contents_upload()" class="btn btn-outline-primary">게시글 등록</button>
+        </div>
+    </div>
 </body>
 
 </html>
