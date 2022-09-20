@@ -133,13 +133,13 @@
 
         function contents_upload() {
             let id = $('#id_value').val();
-            let pwd = $('#pw_value').val();
+            let pw = $('#pw_value').val();
             let img = 'https://cmsphoto.ww-cdn.com/superstatic/1788037/art/default/31394272-29615629.jpg?v=1551977422';
             let group_name = $('#group_name').val();
             let address = $('#address').val();
             let content = $('#write_content').val();
 
-            if (id == "" || pwd == "" || group_name == "" || address == "" || content == "") {
+            if (id == "" || pw == "" || group_name == "" || address == "" || content == "") {
                 alert("기입하지 않은 정보가 있습니다.")
             }
 
@@ -148,7 +148,7 @@
                 url: "/udongdong/write",
                 data: {
                     id: id,
-                    pwd: pwd,
+                    pw: pw,
                     img: img,
                     group_name: group_name,
                     address: address,

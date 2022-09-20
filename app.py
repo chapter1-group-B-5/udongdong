@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, make_response
 app = Flask(__name__)
 
+from bson.json_util import dumps
+import requests
 import hashlib
 import jwt
 import datetime
@@ -9,13 +11,21 @@ from pymongo import MongoClient
 client = MongoClient('mongodb+srv://test:sparta@cluster0.wtjymgq.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.dbsparta
 
-<<<<<<< HEAD
+# test_user = {
+#     'id':'sehun@naver.com',
+#     'pw':'wls1234',
+#     'nick':'세휸'
+# }
+#
+# db.user.insert_one(test_user)
 
-=======
+# one_post = db.post_content.find_one({'group_name': "산악사랑"})
+# print(one_post['group_name'])
+
 # JWT 토큰을 만들 때 필요한 비밀문자열입니다. 아무거나 입력해도 괜찮습니다.
 # 이 문자열은 서버만 알고있기 때문에, 내 서버에서만 토큰을 인코딩(=만들기)/디코딩(=풀기) 할 수 있습니다.
 SECRET_KEY = 'TEAM'
->>>>>>> 5bccda66fc3eb947d65359a4cb9cac2d7a0a378a
+
 
 # member_doc = {'id':'wlstpgns51@naver.com', 'pwd':'wls124578' }
 # db.member.insert_one(member_doc)
@@ -36,8 +46,11 @@ SECRET_KEY = 'TEAM'
 
 @app.route('/')
 def home():
+    cookie_name = 'test'
+    resp = make_response(render_template('MainPage.html'))
+    resp.set_cookie('cookie_name', cookie_name, samesite='None', secure=True)
 
-   return render_template('MainPage.html')
+    return resp
 
 
 @app.route('/udongdong/posts', methods=["GET"])
@@ -45,6 +58,29 @@ def posts_list():
     posts_list = list(db.post_content.find({}, {'_id': False}))
 
     return jsonify({'posts_list':posts_list})
+
+@app.route('/udongdong/one_post', methods=["POST"])
+def one_post():
+    group_name = request.form['group_name']
+    print(group_name)
+
+    post = db.post_content.find_one({'group_name': group_name})
+    print(post)
+
+    if post is None:
+        one_post = None
+    elif post is not None:
+        one_post = {
+            'img': post['img'],
+            'group_name': post['group_name'],
+            'address': post['address'],
+            'content': post['content'],
+            'id': post['id'],
+        }
+
+    print(one_post)
+
+    return jsonify({'one_post':one_post})
 
 
 @app.route('/udongdong/write_page', methods=["GET"])
@@ -89,7 +125,7 @@ def view_content():
 
 
 @app.route("/udongdong/comment_write", methods=["POST"])
-def write_content():
+def write_comment():
     user_id = request.form('user_id')
     nickname = request.form('nickname')
     comment = request.form('comment')
