@@ -29,42 +29,117 @@
             justify-content: center;
         }
 
-        .row{
-            width: 1100px;
-            height: 500px;
+        .row {
+            width: 1000px;
             max-width: 1000px;
+            max-height: 100%;
             margin: 20px auto 0px auto;
             padding: 20px;
         }
 
-        .upload_image_box{
-            float: left;
-
-            border: 1px solid;
-            padding: 20px;
-        }
-
-        .upload_post_box{
-            float: right;
-
-            border: 1px solid;
-        }
-
-        textarea{
+        textarea {
             width: 450px;
             height: 300px;
         }
+
+        label {
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        img {
+            width: 200px;
+            height: 200px;
+        }
+
+        .real-upload {
+            display: none;
+        }
+
+        .image-preview {
+            width: 100%;
+            height: 400px;
+            background-color: white;
+            display: flex;
+            gap: 10px;
+
+            border: 0px solid;
+
+            overflow: scroll;
+        }
     </style>
     <script>
-        function contents_upload(){
+        $(document).ready(function () {
+            $('#footer').load("/footer.html");
+        })
+
+        window.onload = function () {
+            const realUpload = document.querySelector('.real-upload');
+            const upload = document.querySelector('.upload');
+
+            upload.addEventListener('click', () => realUpload.click());
+
+            realUpload.addEventListener('change', getImageFiles);
+        }
+
+        function getImageFiles(e) {
+            let uploadFiles = [];
+            const files = e.currentTarget.files;
+            const imagePreview = document.querySelector('.image-preview');
+            const docFrag = new DocumentFragment();
+
+            if ([...files].length >= 7) {
+                alert('이미지는 최대 6개 까지 업로드가 가능합니다.');
+                return;
+            }
+
+            // 파일 타입 검사
+            [...files].forEach(file => {
+                if (!file.type.match("image/.*")) {
+                    alert('이미지 파일만 업로드가 가능합니다.');
+                    return
+                }
+
+                // 파일 갯수 검사
+                if ([...files].length < 7) {
+                    uploadFiles.push(file);
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const preview = createElement(e, file);
+                        imagePreview.appendChild(preview);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        function createElement(e, file) {
+            const div = document.createElement('div');
+            const img = document.createElement('img');
+            img.setAttribute('src', e.target.result);
+            img.setAttribute('data-file', file.name);
+            div.appendChild(img);
+
+            return div;
+        }
+
+        function pic_val_test() {
+            alert($('#real-upload').val());
+        }
+
+        function contents_upload() {
             let id = $('#id_value').val();
-            let pwd = $('#pwd_value').val();
+            let pwd = $('#pw_value').val();
             let img = 'https://cmsphoto.ww-cdn.com/superstatic/1788037/art/default/31394272-29615629.jpg?v=1551977422';
             let group_name = $('#group_name').val();
             let address = $('#address').val();
             let content = $('#write_content').val();
 
-            if(id == "" || pwd == "" || group_name == "" || address == "" || content == ""){
+            if (id == "" || pwd == "" || group_name == "" || address == "" || content == "") {
                 alert("기입하지 않은 정보가 있습니다.")
             }
 
@@ -72,12 +147,12 @@
                 type: "POST",
                 url: "/udongdong/write",
                 data: {
-                    id:id,
-                    pwd:pwd,
-                    img:img,
-                    group_name:group_name,
-                    address:address,
-                    content:content
+                    id: id,
+                    pwd: pwd,
+                    img: img,
+                    group_name: group_name,
+                    address: address,
+                    content: content
                 },
                 success: function (response) {
                     alert(response["msg"]);
@@ -90,28 +165,34 @@
 </head>
 
 <body>
-    <div class="header_image"></div>
+<div class="header_image"></div>
 
-    <div class="row row-cols-1 row-cols-md-2 g-4">
-        <div class="upload_image_box">
-            <input type="file" name="file" id="image_file_input" accept="image/*"><hr>
-        </div>
-        <div class="upload_post_box">
-            <div class="mb-3">
-                <input type="hidden" id="id_value" value="{{id}}">
-                <input type="hidden" id="pwd_value" value="{{pwd}}">
-                <label for="exampleFormControlInput1" class="form-label">동호회 이름</label>
-                <input type="text" class="form-control" id="group_name" placeholder="이름 입력">
-                <label for="exampleFormControlInput2" class="form-label">지역</label>
-                <input type="text" class="form-control" id="address" placeholder="지역 입력">
-            </div>
-            <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">작성글</label>
-                <textarea class="form-control" id="write_content" rows="3"></textarea>
-            </div>
-            <button type="button" onclick="contents_upload()" class="btn btn-outline-primary">게시글 등록</button>
-        </div>
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="upload_image_box">
+        <input type="file" class="real-upload" id="real-upload" accept="image/*">
+        <button type="button" class="upload btn btn-outline-primary">이미지 업로드</button>
+        <hr>
+        <div class="image-preview row row-cols-1 row-cols-md-2 g-2" id="image-preview"></div>
+        <br>
+        <button type="button" onclick="pic_val_test()" class="btn btn-outline-primary">사진 값 불러오기 테스트</button>
     </div>
-</body>
+    <div class="upload_post_box">
+        <div class="mb-3">
+            <input type="hidden" id="id_value" value="{{id}}">
+            <input type="hidden" id="pw_value" value="{{pw}}">
+            <label for="exampleFormControlInput1" class="form-label">동호회 이름</label>
+            <input type="text" class="form-control" id="group_name" placeholder="이름 입력">
+            <label for="exampleFormControlInput2" class="form-label">지역</label>
+            <input type="text" class="form-control" id="address" placeholder="지역 입력">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">작성글</label>
+            <textarea class="form-control" id="write_content" rows="3"></textarea>
+        </div>
+        <button type="button" onclick="contents_upload()" class="btn btn-outline-primary">게시글 등록</button>
+    </div>
+</div>
 
+<div id="footer"></div>
+</body>
 </html>

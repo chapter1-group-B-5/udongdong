@@ -7,6 +7,8 @@ from pymongo import MongoClient
 client = MongoClient('mongodb+srv://test:sparta@cluster0.wtjymgq.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.dbsparta
 
+
+
 # member_doc = {'id':'wlstpgns51@naver.com', 'pwd':'wls124578' }
 # db.member.insert_one(member_doc)
 # member = list(db.member.find({},{'_id':False}))
@@ -40,14 +42,14 @@ def posts_list():
 @app.route('/udongdong/write_page', methods=["GET"])
 def write_page():
     id = request.args.get('id')
-    pwd = request.args.get('pwd')
+    pw = request.args.get('pw')
 
-    return render_template('write_post.html', id=id, pwd=pwd)
+    return render_template('write_post.html', id=id, pw=pw)
 
 @app.route("/udongdong/write", methods=["POST"])
 def write_content():
     id = request.form['id']
-    pwd = request.form['pwd']
+    pw = request.form['pw']
     img = request.form['img']
     group_name = request.form['group_name']
     address = request.form['address']
@@ -59,12 +61,11 @@ def write_content():
         'address': address,
         'content': content,
         'id': id,
-        'pwd': pwd
+        'pw': pw
     }
 
     db.post_content.insert_one(content_doc)
 
-    # 취합 후 메인 페이지로 이동될 수 있게 변경할 것
     return jsonify({'msg':"작성 완료"})
 
 
@@ -74,8 +75,30 @@ def view_content():
     address = request.args.get('address')
     content = request.args.get('content')
     img = request.args.get('img')
+    id = request.args.get('id')
 
-    return render_template('open_post.html', group_name=group_name, address=address, content=content, img=img)
+    return render_template('open_post.html', group_name=group_name, address=address, content=content, img=img, id=id)
+
+
+@app.route("/udongdong/comment_write", methods=["POST"])
+def write_content():
+    user_id = request.form('user_id')
+    nickname = request.form('nickname')
+    comment = request.form('comment')
+
+    comment_doc = {
+        'id':user_id,
+        'nick':nickname,
+        'comment':comment
+    }
+
+    db.comments.insert_one(comment_doc)
+
+    comments_list = list(db.comments.find({}, {'_id': False}))
+
+    return jsonify({'comment_list':comments_list})
+
+
 
 @app.route('/register')
 def register():
