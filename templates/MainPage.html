@@ -20,6 +20,7 @@
     * {
         font-family: 'Gowun Dodum', sans-serif;
     }
+
     .mytitle{
 
       width:100%;
@@ -34,67 +35,45 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
     }
-    .mytitle > button {
-      width:200px;
-      height:50px;
 
-      background-color: transparent;
-      color:white;
-
-      border-radius:50px;
-
-      border: 1px solid white;
-
-      margin-top: 10px;
+    h1.relative {
+        position: relative;
+        left:130px;
     }
-    .mytitle > button:hover {
-      border: 2px solid white;
+
+    h6.relative {
+        position: relative;
+        left:130px;
     }
-    .mycomment {
-      color: gray;
-    }
+
     .wrap {
       max-width: 1200px;
       width: 95%;
       margin: 20px auto 0px auto;
     }
-    .mypost {
-      max-width: 500px;
-      width: 95%;
 
-      margin: 20px auto 0px auto;
-
-      box-shadow: 0px 0px 3px 0px gray;
-      padding: 20px;
-
-      display: none;
+    .navbar-nav {
+        width: 100%;
+        display: inline-block;
     }
-    .mybtn {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
 
-      margin-top:10px;
+    .left-tab {
+        float: left;
+        display: inline-block;
     }
-    .mybtn > button {
-      margin-right: 10px;
+
+    .right-tab {
+        float: right;
+        display: inline-block;
     }
+
   </style>
 
   <script>
     $(document).ready(function(){
         posts_list();
     })
-
-    function open_box() {
-      $('#post-box').show()
-    }
-    function close_box() {
-      $('#post-box').hide()
-    }
 
     function posts_list(){
         $.ajax({
@@ -130,66 +109,93 @@
                 }
             })
     }
+
+    $('#search').click(function(){
+        let searchVal = $('#search-input').val();
+        //검색 버튼 누르면 /search?value=입력내용 경로로 이동, get 요청
+        window.location.replace(`/search?value=${searchVal}`);
+    })
+
+    /*
+    app.get('/search', function(req, res){
+        db.collection('post').find({$text : {$search: req.query.value}}).toArray(function(err, result){
+            res.render('search.ejs', {searchPost:result})
+        })
+    })
+    */
+
+    app.get('/search', function(req, res){
+        let condition = [
+            {
+                $search : {
+                    index : 'group_name_search',
+                    text : {
+                        query: req.query.value,
+                        path: 'group_name'
+                    }
+                }
+            },
+            {
+                $sort : {_id:1} //오름차순, -1은 내림차순
+            },
+            {
+                $limit : 10 //가져올 최대 데이터 개수
+            }
+        ];
+        db.collection('post').aggregate(condition).toArray(function(err, result){
+            res.render('search.ejs', {searchPost:result})
+        })
+    })
+
   </script>
 
 </head>
 
 <body>
+<<<<<<< HEAD
 
 <!--    <div class="write_btn">-->
 <!--        <button onclick="open_box()">영화 기록하기</button>-->
 <!--    </div>-->
 
+=======
+>>>>>>> 5bccda66fc3eb947d65359a4cb9cac2d7a0a378a
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">로고</a>
+            <a class="navbar-brand" href="#">우동동</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+                    aria-expanded="true" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" style="justify-content: space-between">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
+                    <li class="nav-item left-tab">
+                        <form class="d-flex">
+                            <input class="form-control me-2" id="search-input" type="search" placeholder="동호회를 검색해보세요!"
+                                   aria-label="Search" style="width:400px; height:40px;">
+                            <button class="btn btn-outline-success" id="search" type="submit" style="width:60px; height:40px;">검색</button>
+                        </form>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item right-tab">
+                        <a class="nav-link" href="#">로그아웃</a>
+                    </li>
+                    <li class="nav-item right-tab">
                         <!-- url 뒤에 붙는 계정 및 패스워드는 나중에 로그인한 계정값을 가져오도록 수정 -->
                         <a class="nav-link active" aria-current="page" href="/udongdong/write_page?id=wlstpgns51@naver.com&pwd=wls124578">글 작성</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">로그아웃</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
             </div>
         </div>
     </nav>
 
     <div class="mytitle">
-    <h1>우동동</h1>
-      <h6>우리 동네 동호회</h6>
-    </div>
-
-    <div class="mypost" id="post-box">
-        <div class="form-floating mb-3">
-          <input type="email" class="form-control" id="url" placeholder="name@example.com">
-          <label for="floatingInput">영화URL</label>
-        </div>
-
-        <div class="form-floating">
-          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
-          style="height: 100px"></textarea>
-          <label for="floatingTextarea">코멘트</label>
-        </div>
-
-        <div class="mybtn">
-          <button type="button" class="btn btn-dark">기록하기</button>
-          <button onclick="close_box()" type="button" class="btn btn-outline-dark">닫기</button>
-        </div>
+    <h1 class="relative">우동동</h1>
+      <h6 class="relative">우리 동네 동호회</h6>
     </div>
 
     <div class="wrap">
@@ -200,7 +206,7 @@
                     <div class="card-body">
                         <h5 class="card-title">볼링 동아리 S.A.B</h5>
                         <p class="card-text">볼링 동아리입니다.</p>
-                        <a href="#" class="btn btn-primary">소개글 보러가기</a>
+                        <a href="/udongdong/view_content" class="btn btn-primary">소개글 보러가기</a>
                     </div>
                 </div>
             </div>
@@ -210,7 +216,7 @@
                     <div class="card-body">
                         <h5 class="card-title">포커스 클럽</h5>
                         <p class="card-text">사진 동아리입니다.</p>
-                        <a href="#" class="btn btn-primary">소개글 보러가기</a>
+                        <a href="/udongdong/view_content" class="btn btn-primary">소개글 보러가기</a>
                     </div>
                 </div>
             </div>
@@ -220,7 +226,7 @@
                     <div class="card-body">
                         <h5 class="card-title">동네밤</h5>
                         <p class="card-text">동호회 네트워크입니다.</p>
-                        <a href="#" class="btn btn-primary">소개글 보러가기</a>
+                        <a href="/udongdong/view_content" class="btn btn-primary">소개글 보러가기</a>
                     </div>
                 </div>
             </div>
@@ -230,7 +236,7 @@
                     <div class="card-body">
                         <h5 class="card-title">함께걷다</h5>
                         <p class="card-text">산책 동아리입니다.</p>
-                        <a href="#" class="btn btn-primary">소개글 보러가기</a>
+                        <a href="/udongdong/view_content" class="btn btn-primary">소개글 보러가기</a>
                     </div>
                 </div>
             </div>
@@ -240,7 +246,7 @@
                     <div class="card-body">
                         <h5 class="card-title">스텝업</h5>
                         <p class="card-text">댄스스포츠 동호회입니다.</p>
-                        <a href="#" class="btn btn-primary">소개글 보러가기</a>
+                        <a href="/udongdong/view_content" class="btn btn-primary">소개글 보러가기</a>
                     </div>
                 </div>
             </div>
@@ -250,7 +256,7 @@
                     <div class="card-body">
                         <h5 class="card-title">위댄스캠프</h5>
                         <p class="card-text">춤 동호회 모임입니다. </p>
-                        <a href="#" class="btn btn-primary">소개글 보러가기</a>
+                        <a href="/udongdong/view_content" class="btn btn-primary">소개글 보러가기</a>
                     </div>
                 </div>
             </div>
