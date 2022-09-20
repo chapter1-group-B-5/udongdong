@@ -9,13 +9,10 @@ from pymongo import MongoClient
 client = MongoClient('mongodb+srv://test:sparta@cluster0.wtjymgq.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.dbsparta
 
-<<<<<<< HEAD
-
-=======
 # JWT 토큰을 만들 때 필요한 비밀문자열입니다. 아무거나 입력해도 괜찮습니다.
 # 이 문자열은 서버만 알고있기 때문에, 내 서버에서만 토큰을 인코딩(=만들기)/디코딩(=풀기) 할 수 있습니다.
 SECRET_KEY = 'TEAM'
->>>>>>> 5bccda66fc3eb947d65359a4cb9cac2d7a0a378a
+
 
 # member_doc = {'id':'wlstpgns51@naver.com', 'pwd':'wls124578' }
 # db.member.insert_one(member_doc)
@@ -89,7 +86,7 @@ def view_content():
 
 
 @app.route("/udongdong/comment_write", methods=["POST"])
-def write_content():
+def write_comment():
     user_id = request.form('user_id')
     nickname = request.form('nickname')
     comment = request.form('comment')

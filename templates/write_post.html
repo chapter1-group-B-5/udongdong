@@ -14,26 +14,59 @@
 
     <title>글 작성 페이지</title>
 
+        <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+
     <style>
+
+        * {
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+
         .header_image {
             width: 100%;
-            height: 250px;
+            height: 350px;
 
             background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://www.seouledu.or.kr/images/contents/business03_imgTitleBox.jpg');
             background-position: center;
             background-size: cover;
 
+            color:white;
+
             display: flex;
-            flex-direction: row;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
         }
 
+        h1.relative {
+            position: relative;
+            left: 130px;
+        }
+
+        h6.relative {
+            position: relative;
+            left: 130px;
+        }
+
+        .navbar-nav {
+            width: 100%;
+            display: inline-block;
+        }
+
+        .left-tab {
+            float: left;
+            display: inline-block;
+        }
+
+        .right-tab {
+            float: right;
+            display: inline-block;
+        }
+
         .row {
-            width: 1000px;
+            width: 1100px;
+            height: 500px;
             max-width: 1000px;
-            max-height: 100%;
-            margin: 20px auto 0px auto;
+            margin: 20px auto 100px auto;
             padding: 20px;
         }
 
@@ -165,9 +198,49 @@
 </head>
 
 <body>
-<div class="header_image"></div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="MainPage.html">우동동</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="true" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" style="justify-content: space-between">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item left-tab">
+                        <form class="d-flex">
+                            <input class="form-control me-2" id="search-input" type="search" placeholder="동호회를 검색해보세요!"
+                                   aria-label="Search" style="width:400px; height:40px;">
+                            <button class="btn btn-outline-success" id="search" type="submit"
+                                    style="width:60px; height:40px;">검색
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item right-tab">
+                        <a class="nav-link" href="#">로그아웃</a>
+                    </li>
+                    <li class="nav-item right-tab">
+                        <!-- url 뒤에 붙는 계정 및 패스워드는 나중에 로그인한 계정값을 가져오도록 수정 -->
+                        <a class="nav-link active" aria-current="page"
+                           href="/udongdong/write_page?id=wlstpgns51@naver.com&pwd=wls124578">글 작성</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="header_image">
+        <h1 class="relative">우동동</h1>
+        <h6 class="relative">우리 동네 동호회</h6>
+    </div>
 
 <div class="row row-cols-1 row-cols-md-2 g-4">
+
     <div class="upload_image_box">
         <input type="file" class="real-upload" id="real-upload" accept="image/*">
         <button type="button" class="upload btn btn-outline-primary">이미지 업로드</button>
@@ -176,6 +249,7 @@
         <br>
         <button type="button" onclick="pic_val_test()" class="btn btn-outline-primary">사진 값 불러오기 테스트</button>
     </div>
+
     <div class="upload_post_box">
         <div class="mb-3">
             <input type="hidden" id="id_value" value="{{id}}">
