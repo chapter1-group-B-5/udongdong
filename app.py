@@ -9,6 +9,7 @@ from pymongo import MongoClient
 client = MongoClient('mongodb+srv://test:sparta@cluster0.wtjymgq.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.dbsparta
 
+
 # JWT 토큰을 만들 때 필요한 비밀문자열입니다. 아무거나 입력해도 괜찮습니다.
 # 이 문자열은 서버만 알고있기 때문에, 내 서버에서만 토큰을 인코딩(=만들기)/디코딩(=풀기) 할 수 있습니다.
 SECRET_KEY = 'TEAM'
@@ -32,8 +33,8 @@ SECRET_KEY = 'TEAM'
 
 @app.route('/')
 def home():
-
    return render_template('MainPage.html')
+
 
 
 @app.route('/udongdong/posts', methods=["GET"])
@@ -83,10 +84,12 @@ def view_content():
 
     return render_template('open_post.html', group_name=group_name, address=address, content=content, img=img)
 
+# 회원가입 페이지입니다.
 @app.route('/register')
 def register():
     return render_template('register.html')
 
+#로그인페이지 입니다.
 @app.route('/login')
 def login():
     msg = request.args.get("msg")
@@ -128,7 +131,7 @@ def api_login():
         # exp에는 만료시간을 넣어줍니다. 만료시간이 지나면, 시크릿키로 토큰을 풀 때 만료되었다고 에러가 납니다.
         payload = {
             'id': id_receive,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=5)
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=60*60*24)
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
