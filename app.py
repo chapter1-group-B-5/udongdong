@@ -9,6 +9,7 @@ from pymongo import MongoClient
 client = MongoClient('mongodb+srv://test:sparta@cluster0.wtjymgq.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.dbsparta
 
+<<<<<<< HEAD
 # name = '산'
 # post = db.post_content.find({'group_name':'/.*'+"산"+'.*/'})
 #
@@ -16,6 +17,8 @@ db = client.dbsparta
 #
 # print(p_name)
 
+=======
+>>>>>>> e3eed63def5b3b378a6f44106316f64058336043
 
 # test_user = {
 #     'id':'sehun@naver.com',
@@ -32,6 +35,14 @@ db = client.dbsparta
 # 이 문자열은 서버만 알고있기 때문에, 내 서버에서만 토큰을 인코딩(=만들기)/디코딩(=풀기) 할 수 있습니다.
 SECRET_KEY = 'TEAM'
 
+<<<<<<< HEAD
+=======
+# JWT 토큰을 만들 때 필요한 비밀문자열입니다. 아무거나 입력해도 괜찮습니다.
+# 이 문자열은 서버만 알고있기 때문에, 내 서버에서만 토큰을 인코딩(=만들기)/디코딩(=풀기) 할 수 있습니다.
+SECRET_KEY = 'TEAM'
+
+
+>>>>>>> e3eed63def5b3b378a6f44106316f64058336043
 # member_doc = {'id':'wlstpgns51@naver.com', 'pwd':'wls124578' }
 # db.member.insert_one(member_doc)
 # member = list(db.member.find({},{'_id':False}))
@@ -51,6 +62,7 @@ SECRET_KEY = 'TEAM'
 
 @app.route('/')
 def home():
+<<<<<<< HEAD
 
    return render_template('login.html')
 
@@ -59,6 +71,15 @@ def main_page():
 
    return render_template('MainPage.html')
 
+=======
+
+    cookie_name = 'test'
+    resp = make_response(render_template('MainPage.html'))
+    resp.set_cookie('cookie_name', cookie_name, samesite='None', secure=True)
+
+    return resp
+    return render_template('MainPage.html')
+>>>>>>> e3eed63def5b3b378a6f44106316f64058336043
 
 @app.route('/udongdong/posts', methods=["GET"])
 def posts_list():
