@@ -20,6 +20,7 @@
     * {
         font-family: 'Gowun Dodum', sans-serif;
     }
+
     .mytitle{
 
       width:100%;
@@ -40,6 +41,7 @@
         position: relative;
         left:130px;
     }
+
     h6.relative {
         position: relative;
         left:130px;
@@ -106,6 +108,44 @@
                 }
             })
     }
+
+    $('#search').click(function(){
+        let searchVal = $('#search-input').val();
+        //검색 버튼 누르면 /search?value=입력내용 경로로 이동, get 요청
+        window.location.replace(`/search?value=${searchVal}`);
+    })
+
+    /*
+    app.get('/search', function(req, res){
+        db.collection('post').find({$text : {$search: req.query.value}}).toArray(function(err, result){
+            res.render('search.ejs', {searchPost:result})
+        })
+    })
+    */
+
+    app.get('/search', function(req, res){
+        let condition = [
+            {
+                $search : {
+                    index : 'group_name_search',
+                    text : {
+                        query: req.query.value,
+                        path: 'group_name'
+                    }
+                }
+            },
+            {
+                $sort : {_id:1} //오름차순, -1은 내림차순
+            },
+            {
+                $limit : 10 //가져올 최대 데이터 개수
+            }
+        ];
+        db.collection('post').aggregate(condition).toArray(function(err, result){
+            res.render('search.ejs', {searchPost:result})
+        })
+    })
+
   </script>
 
 </head>
@@ -124,9 +164,9 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item left-tab">
                         <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="동호회를 검색해보세요!"
+                            <input class="form-control me-2" id="search-input" type="search" placeholder="동호회를 검색해보세요!"
                                    aria-label="Search" style="width:400px; height:40px;">
-                            <button class="btn btn-outline-success" type="submit" style="width:60px; height:40px;">검색</button>
+                            <button class="btn btn-outline-success" id="search" type="submit" style="width:60px; height:40px;">검색</button>
                         </form>
                     </li>
                 </ul>
@@ -157,7 +197,7 @@
                     <div class="card-body">
                         <h5 class="card-title">볼링 동아리 S.A.B</h5>
                         <p class="card-text">볼링 동아리입니다.</p>
-                        <a href="#" class="btn btn-primary">소개글 보러가기</a>
+                        <a href="/udongdong/view_content" class="btn btn-primary">소개글 보러가기</a>
                     </div>
                 </div>
             </div>
@@ -167,7 +207,7 @@
                     <div class="card-body">
                         <h5 class="card-title">포커스 클럽</h5>
                         <p class="card-text">사진 동아리입니다.</p>
-                        <a href="#" class="btn btn-primary">소개글 보러가기</a>
+                        <a href="/udongdong/view_content" class="btn btn-primary">소개글 보러가기</a>
                     </div>
                 </div>
             </div>
@@ -177,7 +217,7 @@
                     <div class="card-body">
                         <h5 class="card-title">동네밤</h5>
                         <p class="card-text">동호회 네트워크입니다.</p>
-                        <a href="#" class="btn btn-primary">소개글 보러가기</a>
+                        <a href="/udongdong/view_content" class="btn btn-primary">소개글 보러가기</a>
                     </div>
                 </div>
             </div>
@@ -187,7 +227,7 @@
                     <div class="card-body">
                         <h5 class="card-title">함께걷다</h5>
                         <p class="card-text">산책 동아리입니다.</p>
-                        <a href="#" class="btn btn-primary">소개글 보러가기</a>
+                        <a href="/udongdong/view_content" class="btn btn-primary">소개글 보러가기</a>
                     </div>
                 </div>
             </div>
@@ -197,7 +237,7 @@
                     <div class="card-body">
                         <h5 class="card-title">스텝업</h5>
                         <p class="card-text">댄스스포츠 동호회입니다.</p>
-                        <a href="#" class="btn btn-primary">소개글 보러가기</a>
+                        <a href="/udongdong/view_content" class="btn btn-primary">소개글 보러가기</a>
                     </div>
                 </div>
             </div>
@@ -207,7 +247,7 @@
                     <div class="card-body">
                         <h5 class="card-title">위댄스캠프</h5>
                         <p class="card-text">춤 동호회 모임입니다. </p>
-                        <a href="#" class="btn btn-primary">소개글 보러가기</a>
+                        <a href="/udongdong/view_content" class="btn btn-primary">소개글 보러가기</a>
                     </div>
                 </div>
             </div>
