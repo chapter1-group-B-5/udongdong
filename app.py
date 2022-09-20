@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request, jsonify, make_response
 app = Flask(__name__)
 
-from bson.json_util import dumps
-import requests
 import hashlib
 import jwt
 import datetime
@@ -11,7 +9,14 @@ from pymongo import MongoClient
 client = MongoClient('mongodb+srv://test:sparta@cluster0.wtjymgq.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.dbsparta
 
-<<<<<<< HEAD
+# name = '산'
+# post = db.post_content.find({'group_name':'/.*'+"산"+'.*/'})
+#
+# p_name = [p['group_name'] for p in post]
+#
+# print(p_name)
+
+
 # test_user = {
 #     'id':'sehun@naver.com',
 #     'pw':'wls1234',
@@ -26,12 +31,6 @@ db = client.dbsparta
 # JWT 토큰을 만들 때 필요한 비밀문자열입니다. 아무거나 입력해도 괜찮습니다.
 # 이 문자열은 서버만 알고있기 때문에, 내 서버에서만 토큰을 인코딩(=만들기)/디코딩(=풀기) 할 수 있습니다.
 SECRET_KEY = 'TEAM'
-
-=======
-# JWT 토큰을 만들 때 필요한 비밀문자열입니다. 아무거나 입력해도 괜찮습니다.
-# 이 문자열은 서버만 알고있기 때문에, 내 서버에서만 토큰을 인코딩(=만들기)/디코딩(=풀기) 할 수 있습니다.
-SECRET_KEY = 'TEAM'
->>>>>>> 0ea30a2b88ea32e6b8b4b98a9a68b13ed0f305fa
 
 # member_doc = {'id':'wlstpgns51@naver.com', 'pwd':'wls124578' }
 # db.member.insert_one(member_doc)
@@ -52,16 +51,13 @@ SECRET_KEY = 'TEAM'
 
 @app.route('/')
 def home():
-<<<<<<< HEAD
-    cookie_name = 'test'
-    resp = make_response(render_template('MainPage.html'))
-    resp.set_cookie('cookie_name', cookie_name, samesite='None', secure=True)
 
-    return resp
-=======
+   return render_template('login.html')
+
+@app.route('/MainPage')
+def main_page():
+
    return render_template('MainPage.html')
->>>>>>> 0ea30a2b88ea32e6b8b4b98a9a68b13ed0f305fa
-
 
 
 @app.route('/udongdong/posts', methods=["GET"])
@@ -76,6 +72,7 @@ def one_post():
     print(group_name)
 
     post = db.post_content.find_one({'group_name': group_name})
+
     print(post)
 
     if post is None:
