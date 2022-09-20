@@ -14,27 +14,72 @@
 
     <title>글 열람 페이지</title>
 
+        <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+
     <style>
+        * {
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+
         .header_image {
             width: 100%;
-            height: 250px;
+            height: 350px;
 
             background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://www.seouledu.or.kr/images/contents/business03_imgTitleBox.jpg');
             background-position: center;
             background-size: cover;
 
+            color:white;
+
             display: flex;
-            flex-direction: row;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
         }
 
+        h1.relative {
+            position: relative;
+            left: 130px;
+        }
+
+        h6.relative {
+            position: relative;
+            left: 130px;
+        }
+
+        .navbar-nav {
+            width: 100%;
+            display: inline-block;
+        }
+
+        .left-tab {
+            float: left;
+            display: inline-block;
+        }
+
+        .right-tab {
+            float: right;
+            display: inline-block;
+        }
+
         .row{
-            width: 1000px;
+            width: 1100px;
+            height: 500px;
             max-width: 1000px;
-            max-height: 100%;
-            margin: 20px auto 0px auto;
+            margin: 20px auto 100px auto;
             padding: 20px;
+        }
+
+        .upload_image_box{
+            float: left;
+
+            border: 1px solid;
+            padding: 20px;
+        }
+
+        .upload_post_box{
+            float: right;
+
+            border: 1px solid;
         }
 
         textarea{
@@ -42,97 +87,78 @@
             height: 300px;
         }
     </style>
+
     <script>
-        $(document).ready(function () {
-            $('#footer').load("/footer.html");
-        })
-
-        //댓글 textarea 키보드 동작에 따라 댓글 창 넓히기
-        function xSize(e){
-            e.style.height = '1px';
-            e.style.height = (e.scrollHeight + 12) + 'px';
-        }
-
-        function comment_write(){
-            //로그인된 계정의 아이디 및 닉네임값을 열람페이지까지 가지고 와서 댓글 작성자의 닉네임 혹은 아이디를 넣어주도록 수정한다,
-            //지금은 계정이 로그인되었다고 가정하고 고정값을 넣어준다.
-            //댓글 작성자는 닉네임으로 나타나도록 하는 것이 좋을 듯하다.
-            let user_id = "wlstpgns51@naver.com";
-            let nickname = "진진";
-            let comment = $('#comment').val();
-
-             $.ajax({
-                type: "POST",
-                url: "/udongdong/comment_write",
-                data: {
-                    user_id: user_id,
-                    nickname: nickname,
-                    comment: comment
-                },
-                success: function (response) {
-                    alert("댓글 작성 완료!");
-
-                    let comments_list = response['comments_list'];
-
-                    for(let i = 0 ; i < comments_list.length ; i++){
-                        let nick = comments_list[i]['nick'];
-                        let comment = comments_list[i]['comment'];
-
-                        let comment_html = `<tr>
-                                                <th>${nick}</th>
-                                                <td>${comment}</td>
-                                            </tr>`;
-
-                        $('#comment_list').append(comment_html);
-                    }
-                }
-            })
+        function write_comment(){
+            alert("댓글 등록 준비중!")
         }
     </script>
+
 </head>
 
 <body>
-    <div class="header_image"></div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="MainPage.html">우동동</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="true" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-    <div class="row row-cols-1 row-cols-md-1 g-4">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" style="justify-content: space-between">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item left-tab">
+                        <form class="d-flex">
+                            <input class="form-control me-2" id="search-input" type="search" placeholder="동호회를 검색해보세요!"
+                                   aria-label="Search" style="width:400px; height:40px;">
+                            <button class="btn btn-outline-success" id="search" type="submit"
+                                    style="width:60px; height:40px;">검색
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item right-tab">
+                        <a class="nav-link" href="#">로그아웃</a>
+                    </li>
+                    <li class="nav-item right-tab">
+                        <!-- url 뒤에 붙는 계정 및 패스워드는 나중에 로그인한 계정값을 가져오도록 수정 -->
+                        <a class="nav-link active" aria-current="page"
+                           href="/udongdong/write_page?id=wlstpgns51@naver.com&pwd=wls124578">글 작성</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="header_image">
+    <h1 class="relative">우동동</h1>
+      <h6 class="relative">우리 동네 동호회</h6>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+
+        <div class="image_box">
+            <img src="{{img}}" class="card-img-top" weight="300" height="400">
+        </div>
+
         <div class="post_box">
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">동호회 이름 : {{group_name}}</label><br>
-                <label for="exampleFormControlInput2" class="form-label">지역 : {{address}}</label><br>
-                <label for="exampleFormControlInput3" class="form-label">작성자 : {{id}}</label><hr>
-                <input type="hidden" id="id" value="{{id}}">
+                <label for="exampleFormControlInput2" class="form-label">지역 : {{address}}</label>
+            </div>
+            <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">작성글</label>
-                <img src="{{img}}" class="card-img-top" weight="300" height="400">
-                <textarea class="form-control" id="write_content" rows="5" readonly>
-                    {{content}}
-                </textarea>
+                <textarea class="form-control" id="write_content" rows="3" readonly>{{content}}</textarea>
             </div>
 
-            <p>로그인된 계정의 닉네임 (nickname)</p>
-            <div class="input-group mb-3">
-              <textarea id="comment" class="form-control" onkeyup="xSize(this)" style="height:53px; overflow-y:hidden" placeholder="댓글 입력" aria-label="Recipient's username" aria-describedby="button-addon2"></textarea>
-              <button class="btn btn-outline-secondary" type="button" onclick="comment_write()">등록</button>
-            </div>
-
-            <div id="comment_wrap">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">작성자</th>
-                        <th scope="col">댓글</th>
-                    </tr>
-                    </thead>
-                    <tbody id="comment_list">
-<!--                    <tr>-->
-<!--                        <th></th>-->
-<!--                        <td></td>-->
-<!--                    </tr>-->
-                    </tbody>
-                </table>
-            </div>
+            <hr>
+            <input type="text" id="comment" placeholder="댓글 입력"><button onclick="write_comment()">등록</button>
         </div>
-    </div>
 
-<div id="footer"></div>
+    </div>
 </body>
+
 </html>
