@@ -8,6 +8,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
               crossorigin="anonymous">
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -21,6 +22,9 @@
 
         <style>
             * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
                 font-family: 'Gowun Dodum', sans-serif;
             }
 
@@ -79,13 +83,62 @@
                 justify-content: center;
             }
 
+            #writebtn {
+                position: relative;
+                margin: 0px 0px 0px 20px;
+                color: #333;
+            }
+
+            #writebtn:hover {
+                color: #45B0EC;
+            }
+
+            #writebtn::before {
+                content: "";
+                width: 0%;
+                height: 1px;
+                bottom: 0;
+                left: 0;
+                position: absolute;
+                background: #45B0EC;
+                transition: all 0.4s;
+            }
+
+            #writebtn:hover::before {
+                width: 100%;
+            }
+
+            #outbtn {
+                position: relative;
+                margin: 0px 20px;
+                color: #333;
+            }
+
+            #outbtn:hover {
+                color: #ffa000;
+            }
+
+            #outbtn::before {
+                content: "";
+                width: 0%;
+                height: 1px;
+                bottom: 0;
+                left: 0;
+                position: absolute;
+                background: #ffa000;
+                transition: all 0.4s;
+            }
+
+            #outbtn:hover::before {
+                width: 100%;
+            }
         </style>
 
         <script>
-            $(document).ready(function(){
+            $(document).ready(function () {
                 let title = document.title;
 
-                if (title != "메인 페이지"){
+                if (title != "메인 페이지") {
                     $('#search_wrap').hide();
                 }
             })
@@ -134,10 +187,24 @@
             }
 
             function sign_out() {
-                $.removeCookie('mytoken');
-                alert('로그아웃!')
-                window.location.href = "/login"
+                Swal.fire({
+                    title: '로그아웃 하시겠습니까?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '로그아웃'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        function out(){
+                        $.removeCookie('mytoken');
+                        window.location.href = "/"
+                        }
+                        out()
+                    }
+                })
             }
+
         </script>
     {% endblock %}
 </head>
@@ -169,10 +236,10 @@
 
             <ul class="navbar-nav me-auto">
                 <li class="nav-item right-tab">
-                    <a class="nav-link" onclick="sign_out()">로그아웃</a>
+                    <a href="#3" id="outbtn" class="nav-link" onclick="sign_out()">로그아웃</a>
                 </li>
                 <li class="nav-item right-tab">
-                    <a class="nav-link active" aria-current="page"
+                    <a id="writebtn" class="nav-link active" aria-current="page"
                        href="/udongdong/write_page?id={{ id }}&nickname={{ nickname }}">글 작성</a>
                 </li>
                 <li class="nav-item right-tab">

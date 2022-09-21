@@ -177,17 +177,29 @@ def login():
 # [회원가입 API]
 # id, pw, nickname을 받아서, mongoDB에 저장합니다.
 # 저장하기 전에, pw를 sha256 방법(=단방향 암호화. 풀어볼 수 없음)으로 암호화해서 저장합니다.
-@app.route('/api/register', methods=['POST'])
-def api_register():
-    id_receive = request.form['id_give']
-    pw_receive = request.form['pw_give']
-    nickname_receive = request.form['nickname_give']
+@app.route('/join/save', methods=['POST'])
+def join_save():
+    userid_receive = request.form['userid_give']
+    usernick_receive = request.form['usernick_give']
+    userpassword_receive = request.form['userpassword_give']
+    password_hash = hashlib.sha256(userpassword_receive.encode('utf-8')).hexdigest()
 
-    pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
-
-    db.user.insert_one({'id': id_receive, 'pw': pw_hash, 'nick': nickname_receive})
+    db.user.insert_one({'id': userid_receive, 'pw': password_hash, 'nick': usernick_receive})
 
     return jsonify({'result': 'success'})
+
+
+@app.route('/join/idcheck', methods=['POST'])
+def join_idcheck():
+    userid_receive = request.form['userid_give']
+    exists = bool(db.user.find_one({"id": userid_receive}))
+    return jsonify({'result': 'success', 'exists': exists})
+
+@app.route('/join/nickcheck', methods=['POST'])
+def join_nickcheck():
+    usernick_receive = request.form['usernick_give']
+    exists = bool(db.user.find_one({"nick": usernick_receive}))
+    return jsonify({'result': 'success', 'exists': exists})
 
 
 # nick_name = db.user.find_one({'id':"wlstp@naver.com"})['nick']
@@ -195,7 +207,7 @@ def api_register():
 
 # [로그인 API]
 # id, pw를 받아서 맞춰보고, 토큰을 만들어 발급합니다.
-@app.route('/api/login', methods=['POST'])
+@app.route('/udongdong/login', methods=['POST'])
 def api_login():
     id_receive = request.form['id_give']
     pw_receive = request.form['pw_give']

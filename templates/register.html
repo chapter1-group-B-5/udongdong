@@ -1,144 +1,422 @@
 <!doctype html>
 <html lang="en">
-    <head>
+<head>
 
-        <!-- Webpage Title -->
-        <title>우동동 회원가입페이지</title>
+    <!-- Webpage Title -->
+    <title>우동동 회원가입페이지</title>
 
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link href="https://webfontworld.github.io/mapo/MapoBackpacking.css" rel="stylesheet">
-        <!-- Bulma CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-        <!-- JS -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://webfontworld.github.io/mapo/MapoBackpacking.css" rel="stylesheet">
+    <link href="https://webfontworld.github.io/NexonLv2Gothic/NexonLv2Gothic.css" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        <script>
-            // 간단한 회원가입 함수입니다.
-            // 아이디, 비밀번호, 닉네임을 받아 DB에 저장합니다.
-            function register() {
-                $.ajax({
-                    type: "POST",
-                    url: "/api/register",
-                    data: {
-                        id_give: $('#userid').val(),
-                        pw_give: $('#userpw').val(),
-                        nickname_give: $('#usernick').val()
-                    },
-                    success: function (response) {
-                        if (response['result'] == 'success') {
-                            alert('회원가입이 완료되었습니다.')
-                            window.location.href = '/login'
-                        } else {
-                            alert(response['msg'])
-                        }
+    <script>
+        //아이디 중복확인
+        function idcheck() {
+            let userid = $('#userid').val()
+            console.log(userid)
+            if (userid == "") {
+                $('#help_id').text("아이디를 입력해주세요.").removeClass("blue").addClass("red")
+            }
+            $.ajax({
+                type: "POST",
+                url: "/join/idcheck",
+                data: {
+                    userid_give: userid
+                },
+                success: function (response) {
+                    if (response["exists"]) {
+                        $('#help_id').text("이미 존재하는 아이디입니다.").removeClass("blue").addClass("red")
+                        $('#userid').focus()
+                    } else {
+                        $('#help_id').text("사용할 수 있는 아이디입니다.").removeClass("red").addClass("blue")
                     }
-                })
+                }
+            });
+        }
+
+        //닉네임 중복확인
+        function nickcheck() {
+            let usernick = $('#usernick').val()
+            console.log(usernick)
+            if (usernick == "") {
+                $('#help_nick').text("닉네임을 입력해주세요.").removeClass("blue").addClass("red")
+            }
+            $.ajax({
+                type: "POST",
+                url: "/join/nickcheck",
+                data: {
+                    usernick_give: usernick
+                },
+                success: function (response) {
+                    if (response["exists"]) {
+                        $('#help_nick').text("이미 존재하는 닉네임입니다.").removeClass("blue").addClass("red")
+                        $('#usernick').focus()
+                    } else {
+                        $('#help_nick').text("사용할 수 있는 닉네임입니다.").removeClass("red").addClass("blue")
+                    }
+                }
+            });
+        }
+
+        //회원가입버튼
+        function join() {
+            let user_id = $("#userid").val()
+            let user_nick = $("#usernick").val()
+            let user_password = $("#userpw").val()
+            let user_passwordc = $("#userpwc").val()
+            console.log(user_id, user_nick, user_password, user_passwordc)
+
+            if (!$("#help_id").hasClass("blue")) {
+                alert("아이디를 확인해주세요.")
+                return;
+            } else if (!$("#help_nick").hasClass("blue")) {
+                alert("닉네임를 확인해주세요.")
+                return;
             }
 
-        </script>
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
+            if (user_password == "") {
+                $("#help_password").text("비밀번호를 입력해주세요.").removeClass("blue").addClass("red")
+                $("#userpw").focus()
+                return;
+            } else if (user_passwordc == "") {
+                $("#help_passwordc").text("비밀번호확인를 입력해주세요.").removeClass("blue").addClass("red")
+                $("#userpwc").focus()
+                return;
+            } else if (user_password != user_passwordc) {
+                $("#help_passwordc").text("비밀번호가 일치하지 않습니다.").removeClass("blue").addClass("red")
+                $("#userpwc").focus()
+                return;
             }
-            .wrap_box {
-                width: 950px;
-                margin: auto;
-                margin-top: 250px;
-            }
-            button {
-                margin-top: 10px;
-            }
-            h1 {
-                margin-bottom: 20px;
-            }
-            .water {
-                font-family: 'MapoBackpacking';
-                font-size: 7em;
-                display: flex;
-                justify-content: center;
-                position: relative;
-                margin-top: 50px;
-            }
-            .water h3 {
-                position: absolute;
-            }
-            .water h3:nth-child(1) {
-                color: transparent;
-                -webkit-text-stroke: 2px #45B0EC;
-            }
-            .water h3:nth-child(2) {
-                color: #45B0EC;
-                animation: animate 4s ease-in-out infinite;
-            }
-            @keyframes animate {
-                0%, 100%
-                {
-                    clip-path: polygon(0% 45%, 15% 44%, 32% 50%, 54% 60%, 70% 61%, 84% 59%, 100% 52%, 100% 100%, 0% 100%);
-                }
-                50%
-                {
-                    clip-path: polygon(0% 60%, 16% 65%, 34% 66%, 51% 62%, 67% 50%, 84% 45%, 100% 46%, 100% 100%, 0% 100%);
-                }
-            }
+            $.ajax({
+                type: "POST",
+                url: "/join/save",
+                data: {
+                    userid_give: user_id,
+                    usernick_give: user_nick,
+                    userpassword_give: user_password
+                },
+                success: function (response) {
+                    Swal.fire({
+                        title: '회원가입이 완료되었습니다.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    setTimeout(function(){
+                        window.location.href = '/login'
+                    }, 1700)
 
-        </style>
-    </head>
-    <body>
-        <div class="water">
-            <h3>우동동</h3>
-            <h3>우동동</h3>
+                }
+            })
+
+
+        }
+
+        //비밀번호 빈칸일경우, 채워질경우 표시
+        $(function () {
+            $("#userpw").on('input', function () {
+                if ($("#userpw").val() == '')
+                    $("#help_password").removeClass("blue").addClass("red")
+                else
+                    $("#help_password").text("").removeClass("red").addClass("blue")
+            })
+        })
+        $(function () {
+            $("#userpwc").on('input', function () {
+                if ($("#userpw").val() == '')
+                    $("#help_passwordc").removeClass("blue").addClass("red")
+                else
+                    $("#help_passwordc").text("").removeClass("red").addClass("blue")
+            })
+        })
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .blue {
+            color: cornflowerblue;
+        }
+
+        .red {
+            color: red;
+        }
+
+        .wrap_box {
+            width: 950px;
+            margin: auto;
+            margin-top: 250px;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .water {
+            font-family: 'MapoBackpacking';
+            font-size: 7em;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            margin-top: 50px;
+        }
+
+        .water h3 {
+            position: absolute;
+        }
+
+        .water h3:nth-child(1) {
+            color: transparent;
+            -webkit-text-stroke: 2px #45B0EC;
+        }
+
+        .water h3:nth-child(2) {
+            color: #45B0EC;
+            animation: animate 4s ease-in-out infinite;
+        }
+
+        @keyframes animate {
+            0%, 100% {
+                clip-path: polygon(0% 45%, 15% 44%, 32% 50%, 54% 60%, 70% 61%, 84% 59%, 100% 52%, 100% 100%, 0% 100%);
+            }
+            50% {
+                clip-path: polygon(0% 60%, 16% 65%, 34% 66%, 51% 62%, 67% 50%, 84% 45%, 100% 46%, 100% 100%, 0% 100%);
+            }
+        }
+
+
+        .inputBox {
+            position: relative;
+            width: 250px;
+            margin-bottom: 30px;
+        }
+
+        .inputBox:nth-child(4),
+        .inputBox:nth-child(5) {
+            width: 380px;
+        }
+
+        .inputBox input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgba(150, 150, 150, 0.15);
+
+            border-radius: 5px;
+            outline: none;
+            color: #444;
+            font-size: 1em;
+            transition: 0.5s;
+        }
+
+        .inputBox span {
+            position: absolute;
+            left: 0;
+            padding: 10px;
+            pointer-events: none;
+            font-size: 1em;
+            color: rgba(0, 0, 0, 0.25);
+            text-transform: uppercase;
+            transition: 0.5s;
+        }
+
+        .inputBox input:valid ~ span,
+        .inputBox input:focus ~ span {
+            color: #45B0EC;
+            transform: translateX(10px) translateY(-7px);
+            font-size: 0.65em;
+            padding: 0 10px;
+            background: #fff;
+            border-left: 1px solid #45B0EC;
+            border-right: 1px solid #45B0EC;
+            letter-spacing: 0.2em;
+        }
+
+        .inputBox input:valid,
+        .inputBox input:focus {
+            border: 1px solid #45B0EC;
+        }
+
+        .join_box {
+            width: 95%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 30px 40px 40px 40px;
+            border: 1px solid #45B0EC;
+            border-radius: 20px;
+            margin-top: 25vh;
+            font-family: 'NexonLv2Gothic';
+        }
+
+        .join_box h1 {
+            letter-spacing: 2px;
+            font-size: 1.5em;
+            text-align: center;
+        }
+
+        .test {
+            position: absolute;
+            border: 1px solid #45B0EC;
+            right: -150px;
+            top: 0px;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: 0.5s;
+            color: #45B0EC;
+        }
+
+        .test:hover {
+            background: #45B0EC;
+            color: #fff;
+        }
+
+        p {
+            margin-top: 5px;
+        }
+
+        .btnbox {
+            text-align: center;
+        }
+
+        .joinbtn {
+            padding: 15px 100px;
+            margin: 10px 4px;
+            color: #45B0EC;
+            font-family: sans-serif;
+            text-transform: uppercase;
+            text-align: center;
+            position: relative;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .joinbtn:hover {
+            color: #fff;
+        }
+
+        .joinbtn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-color: #000;
+            -webkit-transform: scaleX(.3);
+            transform: scaleX(.3);
+            opacity: 0;
+            transition: all .4s
+        }
+
+        .joinbtn:hover::before {
+            opacity: 1;
+            background-color: #45B0EC;
+            -webkit-transform: scaleX(1);
+            transform: scaleX(1);
+            transition: -webkit-transform .6s cubic-bezier(.08, .35, .13, 1.02), opacity .4s;
+            transition: transform .6s cubic-bezier(.08, .35, .13, 1.02), opacity
+        }
+    </style>
+</head>
+<body>
+<div class="water">
+    <h3>우동동</h3>
+    <h3>우동동</h3>
+</div>
+
+<div class="join_box">
+    <div>
+        <h1>회원가입</h1>
+        <div class="inputBox">
+            <input type="text" required="required" id="userid">
+            <span>아이디</span>
+            <a href="#3" class="test" onclick="idcheck()">아이디 중복확인</a>
+            <p id="help_id"></p>
         </div>
+        <div class="inputBox">
+            <input type="text" required="required" id="usernick">
+            <span>닉네임</span>
+            <a href="#3" class="test" onclick="nickcheck()">닉네임 중복확인</a>
+            <p id="help_nick"></p>
+        </div>
+        <div class="inputBox">
+            <input type="password" required="required" id="userpw">
+            <span>비밀번호</span>
+            <p id="help_password"></p>
+        </div>
+        <div class="inputBox">
+            <input type="password" required="required" id="userpwc">
+            <span>비밀번호 확인</span>
+            <p id="help_passwordc"></p>
+        </div>
+        <div class="btnbox">
+            <a onclick="join()" class="joinbtn">회원가입하기</a>
+        </div>
+    </div>
+</div>
 
-        <div class="wrap_box">
-            <div class="section has-text-centered">
-                <h1 class="title">회원가입</h1>
-                <div class="container" style="width:60%">
-                    <div class="field is-horizontal">
-                        <div class="field-label is-normal">
-                            <label class="label" for="userid">아이디</label>
-                        </div>
-                        <div class="field-body">
-                            <div class="field">
-                                <div class="control">
-                                    <input type="text" class="input" id="userid" aria-describedby="emailHelp"
-                                           placeholder="My ID">
-                                </div>
-                            </div>
+<!--<div class="wrap_box">
+    <div class="section has-text-centered">
+        <h1 class="title">회원가입</h1>
+        <div class="container" style="width:60%">
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="userid">아이디</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input type="text" class="input" id="userid" aria-describedby="emailHelp"
+                                   placeholder="My ID">
                         </div>
                     </div>
-                    <div class="field is-horizontal">
-                        <div class="field-label is-normal">
-                            <label class="label" for="userpw">비밀번호</label>
-                        </div>
-                        <div class="field-body">
-                            <div class="field">
-                                <div class="control">
-                                    <input type="password" class="input" id="userpw" placeholder="My Password">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="field is-horizontal">
-                        <div class="field-label is-normal">
-                            <label class="label" for="usernick">닉네임</label>
-                        </div>
-                        <div class="field-body">
-                            <div class="field">
-                                <div class="control">
-                                    <input type="text" class="input" id="usernick" placeholder="My Nickname">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="button" onclick="register()">회원가입</button>
                 </div>
             </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="userpw">비밀번호</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input type="password" class="input" id="userpw" placeholder="My Password">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="usernick">닉네임</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input type="text" class="input" id="usernick" placeholder="My Nickname">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="button" onclick="register()">회원가입</button>
         </div>
+    </div>
+</div>-->
 
-    </body>
+</body>
 </html>

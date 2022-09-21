@@ -31,7 +31,7 @@
         function login() {
             $.ajax({
                 type: "POST",
-                url: "/api/login",
+                url: "/udongdong/login",
                 data: {id_give: $('#userid').val(), pw_give: $('#userpw').val()},
                 success: function (response) {
                     if (response['result'] == 'success') {
@@ -63,7 +63,9 @@
                 }
             })
         }
-
+        function joinmove(){
+            window.location.href="/register"
+        }
 
     </script>
     <style>
@@ -143,6 +145,22 @@
             transition: 0.5s;
             margin-top: 20px;
         }
+        .btn2 {
+            position: relative;
+            display: inline-block;
+            padding: 10px 30px;
+            text-decoration: none;
+            color: rgba(0, 0, 0, 0.5);
+            background: #fff;
+            letter-spacing: 2px;
+            font-size: 16px;
+            transition: 0.5s;
+            margin-top: 10px;
+        }
+
+        .btn2:hover {
+            color: #45B0EC;
+        }
 
         .btn:hover {
             color: #ffa000;
@@ -153,79 +171,100 @@
             position: absolute;
             background: #ffa000;
         }
+        .btn2 span {
+            display: block;
+            position: absolute;
+            background: #45B0EC;
+        }
 
-        .btn span:nth-child(1) {
+        .btn span:nth-child(1),
+        .btn2 span:nth-child(1)
+        {
             left: 0;
             bottom: 0;
             width: 1px;
             height: 100%;
             transform: scaleY(0);
             transform-origin: top;
-            transition: transform 0.5s;
+            transition: transform 0.2s;
         }
 
-        .btn:hover span:nth-child(1) {
+        .btn:hover span:nth-child(1),
+        .btn2:hover span:nth-child(1)
+        {
             transform: scaleY(1);
             transform-origin: bottom;
-            transition: transform 0.5s;
+            transition: transform 0.2s;
         }
 
-        .btn span:nth-child(2) {
+        .btn span:nth-child(2),
+        .btn2 span:nth-child(2)
+        {
             left: 0;
             bottom: 0;
             width: 100%;
             height: 1px;
             transform: scaleX(0);
             transform-origin: right;
-            transition: transform 0.5s;
+            transition: transform 0.2s;
         }
 
-        .btn:hover span:nth-child(2) {
+        .btn:hover span:nth-child(2),
+        .btn2:hover span:nth-child(2)
+        {
             transform: scaleX(1);
             transform-origin: left;
-            transition: transform 0.5s;
+            transition: transform 0.2s;
         }
 
-        .btn span:nth-child(3) {
+        .btn span:nth-child(3),
+        .btn2 span:nth-child(3)
+        {
             right: 0;
             bottom: 0;
             width: 1px;
             height: 100%;
             transform: scaleY(0);
             transform-origin: top;
-            transition: transform 0.5s;
-            transition-delay: 0.5s;
+            transition: transform 0.2s;
+            transition-delay: 0.2s;
         }
 
-        .btn:hover span:nth-child(3) {
+        .btn:hover span:nth-child(3),
+        .btn2:hover span:nth-child(3)
+        {
             transform: scaleY(1);
             transform-origin: bottom;
-            transition: transform 0.5s;
-            transition-delay: 0.5s;
+            transition: transform 0.2s;
+            transition-delay: 0.2s;
         }
 
-        .btn span:nth-child(4) {
+        .btn span:nth-child(4),
+        .btn2 span:nth-child(4)
+        {
             left: 0;
             top: 0;
             width: 100%;
             height: 1px;
             transform: scaleX(0);
             transform-origin: right;
-            transition: transform 0.5s;
-            transition-delay: 0.5s;
+            transition: transform 0.2s;
+            transition-delay: 0.2s;
         }
 
-        .btn:hover span:nth-child(4) {
+        .btn:hover span:nth-child(4),
+        .btn2:hover span:nth-child(4)
+        {
             transform: scaleX(1);
             transform-origin: left;
-            transition: transform 0.5s;
-            transition-delay: 0.5s;
+            transition: transform 0.2s;
+            transition-delay: 0.2s;
         }
 
         {#제목#}
         h1 {
             font-family: 'MapoBackpacking';
-            font-size: 6em;
+            font-size: 7em;
             text-align: center;
             color: #ffa000;
             margin-top: 5vh;
@@ -250,6 +289,12 @@
         <span></span>
         <span></span>
         로그인</a>
+    <a class="btn2" href="#" onclick="joinmove()">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        회원가입</a>
 </div>
 
 </body>
