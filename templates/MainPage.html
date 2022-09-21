@@ -11,6 +11,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
     <title>MainPage</title>
 
@@ -47,31 +49,11 @@
             left: 130px;
         }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 541ce6c9fbd6aeb77ee1c4c49f9ce5517a0bdede
         .wrap {
             max-width: 1200px;
             width: 95%;
             margin: 20px auto 0px auto;
         }
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 541ce6c9fbd6aeb77ee1c4c49f9ce5517a0bdede
-
-    .wrap {
-      max-width: 1200px;
-      width: 95%;
-      margin: 20px auto 100px auto;
-    }
-<<<<<<< HEAD
-
-=======
->>>>>>> faae709851a3139ea465a42f3cbcc03ce49a0676
->>>>>>> 541ce6c9fbd6aeb77ee1c4c49f9ce5517a0bdede
 
         .navbar-nav {
             width: 100%;
@@ -96,20 +78,29 @@
             justify-content: center;
         }
 
+        tr,td {
+            height: 150px;
+            padding: 30px 200px;
+        }
+
+        table {
+            border: 1px;
+            width: 100%;
+            background-color:#F2F2F2;
+        }
+
     </style>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
-            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+
     <script type="text/javascript">
         $(document).ready(function () {
             $("#footer").load("footer.html")
             /* id 지정을 통해서도 가능합니다.
              $("#header").load("header.html #navbar")
              */
-        });
-    </script>
+        );
 
-    <script>
         function includeHTML() {
             var z, i, elmnt, file, xhttp;
             /* 모든 HTML 요소 컬렉션을 통해 루프 */
@@ -140,7 +131,7 @@
                     return;
                 }
             }
-        }
+
 
         $(document).ready(function () {
             posts_list();
@@ -262,16 +253,11 @@
 </head>
 
 <body>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
+
 <div w3-include-html="header.html"></div>
 <script>
     includeHTML();
 </script>
-=======
->>>>>>> faae709851a3139ea465a42f3cbcc03ce49a0676
->>>>>>> 541ce6c9fbd6aeb77ee1c4c49f9ce5517a0bdede
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
@@ -307,41 +293,6 @@
                     <text class="nav-link"><span>{{ nickname }}</span> 님 반갑습니다!</text>
                 </li>
             </ul>
-<<<<<<< HEAD
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="MainPage.html">우동동</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="true" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent" style="justify-content: space-between">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item left-tab">
-                        <form class="d-flex">
-                            <input class="form-control me-2" id="search-input" type="search" placeholder="동호회를 검색해보세요!"
-                                   aria-label="Search" style="width:400px; height:40px;">
-                            <button class="btn btn-outline-success" id="search" type="submit" style="width:60px; height:40px;">검색</button>
-                        </form>
-                    </li>
-                </ul>
-
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item right-tab">
-                        <a class="nav-link" href="#">로그아웃</a>
-                    </li>
-                    <li class="nav-item right-tab">
-                        <!-- url 뒤에 붙는 계정 및 패스워드는 나중에 로그인한 계정값을 가져오도록 수정 -->
-                        <a class="nav-link active" aria-current="page" href="/udongdong/write_page?id=wlstpgns51@naver.com&pwd=wls124578">글 작성</a>
-                    </li>
-                </ul>
-            </div>
-
-=======
->>>>>>> 541ce6c9fbd6aeb77ee1c4c49f9ce5517a0bdede
         </div>
     </div>
 </nav>
@@ -355,27 +306,42 @@
     <div id="cards-box" class="row row-cols-1 row-cols-md-3 g-3">
 
     </div>
-<<<<<<< HEAD
-
 </div>
 
-</body>
-=======
-</div>
-<<<<<<< HEAD
-</div>
-<div id="footer"></div>
-=======
+<footer>
+    <table>
+        <tr>
+            <td>
+                <b>상호명</b>
+                &nbsp;&nbsp;우동동<br>
+                <b>대표</b>
+                &nbsp;&nbsp;진세훈<br>
+                <b>개인정보관리책임자</b>
+                &nbsp;&nbsp;박성우<br>
+                <b>전화</b>
+                &nbsp;&nbsp;010-1234-5678<br>
+                <b>이메일</b>
+                &nbsp;&nbsp;info@udongdong.com<br>
+            </td>
 
-<div w3-include-html="footer.html"></div>
->>>>>>> 541ce6c9fbd6aeb77ee1c4c49f9ce5517a0bdede
+            <td>
+                <b>고객센터</b>
+                &nbsp;&nbsp;010-1234-5678(책임자:김정은)<br>
+                <br>
+                서비스 이용약관
+                <br><br>
+                개인정보 처리방침
+            </td>
+        </tr>
 
-<script>
-    window.addEventListener('DOMContentLoaded',()=> {
-        includeHTML();
-    });
-</script>
+        <tr>
+            <td colspan="2" style="text-align: center;">
+                서비스에 대한 모든 책임은 "9기 B반 5조"에 있습니다.<br>
+                <B>Copyright Ⓒ 2022 udongdong All rights reserved</B><br>
+            </td>
+        </tr>
+    </table>
+</footer>
 
->>>>>>> faae709851a3139ea465a42f3cbcc03ce49a0676
 </body>
 </html>
