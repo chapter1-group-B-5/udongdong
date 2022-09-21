@@ -107,7 +107,7 @@
     </style>
     <script>
         $(document).ready(function () {
-            $('#footer').load("/footer.html");
+            $('#footer').load("footer.html");
         })
 
         window.onload = function () {
@@ -166,30 +166,31 @@
 
         function contents_upload() {
             let id = $('#id_value').val();
-            let pw = $('#pw_value').val();
+            let nickname = $('#nickname_value').val();
             let img = 'https://cmsphoto.ww-cdn.com/superstatic/1788037/art/default/31394272-29615629.jpg?v=1551977422';
             let group_name = $('#group_name').val();
             let address = $('#address').val();
             let content = $('#write_content').val();
-
-            if (id == "" || pw == "" || group_name == "" || address == "" || content == "") {
-                alert("기입하지 않은 정보가 있습니다.")
-            }
 
             $.ajax({
                 type: "POST",
                 url: "/udongdong/write",
                 data: {
                     id: id,
-                    pw: pw,
+                    nickname: nickname,
                     img: img,
                     group_name: group_name,
                     address: address,
                     content: content
                 },
                 success: function (response) {
-                    alert(response["msg"]);
-                    location.href = "/";
+
+                    if(response['msg'] == "O"){
+                        alert("글 작성 완료");
+                        location.href = "/MainPage";
+                    }else if(response['msg'] == "X"){
+                        alert("기입하지 않은 정보가 있습니다.");
+                    }
                 }
             })
 
@@ -224,11 +225,10 @@
                     <li class="nav-item right-tab">
                         <a class="nav-link" href="#">로그아웃</a>
                     </li>
-                    <li class="nav-item right-tab">
-                        <!-- url 뒤에 붙는 계정 및 패스워드는 나중에 로그인한 계정값을 가져오도록 수정 -->
-                        <a class="nav-link active" aria-current="page"
-                           href="/udongdong/write_page?id=wlstpgns51@naver.com&pwd=wls124578">글 작성</a>
-                    </li>
+{#                    <li class="nav-item right-tab">#}
+{#                        <a class="nav-link active" aria-current="page"#}
+{#                           href="/udongdong/write_page?id=wlstpgns51@naver.com&pwd=wls124578">글 작성</a>#}
+{#                    </li>#}
                 </ul>
             </div>
         </div>
@@ -253,11 +253,11 @@
     <div class="upload_post_box">
         <div class="mb-3">
             <input type="hidden" id="id_value" value="{{id}}">
-            <input type="hidden" id="pw_value" value="{{pw}}">
+            <input type="hidden" id="nickname_value" value="{{nickname}}">
             <label for="exampleFormControlInput1" class="form-label">동호회 이름</label>
             <input type="text" class="form-control" id="group_name" placeholder="이름 입력">
-            <label for="exampleFormControlInput2" class="form-label">지역</label>
-            <input type="text" class="form-control" id="address" placeholder="지역 입력">
+            <label for="exampleFormControlInput2" class="form-label">위치</label>
+            <input type="text" class="form-control" id="address" placeholder="위치 입력">
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">작성글</label>

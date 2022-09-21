@@ -47,7 +47,10 @@
                             timer: 1000
                         })
                         setTimeout(function(){
-                            window.location.href = '/'
+                            {#let id = response['user_info']['id']#}
+                            {#let nick = response['user_info']['nick']#}
+
+                            window.location.replace("/MainPage")
                         }, 1000)
 
                     } else {
