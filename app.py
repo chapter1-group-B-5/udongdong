@@ -13,10 +13,7 @@ from pymongo import MongoClient
 client = MongoClient('mongodb+srv://test:sparta@cluster0.wtjymgq.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.dbsparta
 
-<<<<<<< HEAD
 
-=======
->>>>>>> cddb8d4fdd3a3e7e781e19d7412de8b68b72fb30
 # posts = list(db.post_content.find({}, {'_id': False}))
 # for p in posts:
 #     print(p)
@@ -27,10 +24,7 @@ db = client.dbsparta
 # p_name = [p['group_name'] for p in post]
 #
 # print(p_name)
-<<<<<<< HEAD
 
-=======
->>>>>>> cddb8d4fdd3a3e7e781e19d7412de8b68b72fb30
 
 # test_user = {
 #     'id':'sehun@naver.com',
@@ -47,19 +41,12 @@ db = client.dbsparta
 # 이 문자열은 서버만 알고있기 때문에, 내 서버에서만 토큰을 인코딩(=만들기)/디코딩(=풀기) 할 수 있습니다.
 SECRET_KEY = 'TEAM'
 
-<<<<<<< HEAD
 
-=======
->>>>>>> cddb8d4fdd3a3e7e781e19d7412de8b68b72fb30
 
 # JWT 토큰을 만들 때 필요한 비밀문자열입니다. 아무거나 입력해도 괜찮습니다.
 # 이 문자열은 서버만 알고있기 때문에, 내 서버에서만 토큰을 인코딩(=만들기)/디코딩(=풀기) 할 수 있습니다.
 SECRET_KEY = 'TEAM'
 
-<<<<<<< HEAD
-
-=======
->>>>>>> cddb8d4fdd3a3e7e781e19d7412de8b68b72fb30
 
 @app.route('/')
 def home():
@@ -68,10 +55,7 @@ def home():
 # JWT 토큰을 만들 때 필요한 비밀문자열입니다. 아무거나 입력해도 괜찮습니다.
 # 이 문자열은 서버만 알고있기 때문에, 내 서버에서만 토큰을 인코딩(=만들기)/디코딩(=풀기) 할 수 있습니다.
 SECRET_KEY = 'TEAM'
-<<<<<<< HEAD
 
-=======
->>>>>>> cddb8d4fdd3a3e7e781e19d7412de8b68b72fb30
 
 # member_doc = {'id':'wlstpgns51@naver.com', 'pwd':'wls124578' }
 # db.member.insert_one(member_doc)
@@ -90,10 +74,7 @@ SECRET_KEY = 'TEAM'
 # post_content = list(db.post_content.find({},{'_id':False}))
 # print(post_content)
 
-<<<<<<< HEAD
 
-=======
->>>>>>> cddb8d4fdd3a3e7e781e19d7412de8b68b72fb30
 @app.route('/MainPage')
 def main_page():
     # nickname = request.args.get('nickname')
@@ -112,19 +93,12 @@ def main_page():
         return redirect("http://localhost:5000/")
     except jwt.exceptions.DecodeError:
         return redirect("http://localhost:5000/")
-<<<<<<< HEAD
-=======
 
->>>>>>> cddb8d4fdd3a3e7e781e19d7412de8b68b72fb30
     return render_template('MainPage.html')
     return resp
     return render_template('MainPage.html')
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> cddb8d4fdd3a3e7e781e19d7412de8b68b72fb30
 @app.route('/udongdong/posts', methods=["GET"])
 def posts_list():
     posts_list = list(db.post_content.find({}, {'_id': False}))
@@ -137,19 +111,12 @@ def one_post():
     group_name = request.form['group_name']
     print(group_name)
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> cddb8d4fdd3a3e7e781e19d7412de8b68b72fb30
     post = db.post_content.find({'group_name': group_name})
 
     post = db.post_content.find_one({'group_name': group_name})
 
-<<<<<<< HEAD
 
-=======
->>>>>>> cddb8d4fdd3a3e7e781e19d7412de8b68b72fb30
     print(post)
 
     if post is None:
@@ -324,13 +291,6 @@ def api_login():
     else:
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
-<<<<<<< HEAD
 
-
-
-
-
-=======
->>>>>>> cddb8d4fdd3a3e7e781e19d7412de8b68b72fb30
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
