@@ -47,24 +47,11 @@
             left: 130px;
         }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> e3eed63def5b3b378a6f44106316f64058336043
         .wrap {
             max-width: 1200px;
             width: 95%;
             margin: 20px auto 0px auto;
         }
-<<<<<<< HEAD
-=======
-
-    .wrap {
-      max-width: 1200px;
-      width: 95%;
-      margin: 20px auto 100px auto;
-    }
->>>>>>> e3eed63def5b3b378a6f44106316f64058336043
 
         .navbar-nav {
             width: 100%;
@@ -96,6 +83,39 @@
             posts_list();
         })
 
+
+        function includeHTML() {
+            var z, i, elmnt, file, xhttp;
+            /*loop through a collection of all HTML elements:*/
+            z = document.getElementsByTagName("*");
+            for (i = 0; i < z.length; i++) {
+                elmnt = z[i];
+                /*search for elements with a certain atrribute:*/
+                file = elmnt.getAttribute("w3-include-html");
+                if (file) {
+                    /*make an HTTP request using the attribute value as the file name:*/
+                    xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4) {
+                            if (this.status == 200) {
+                                elmnt.innerHTML = this.responseText;
+                            }
+                            if (this.status == 404) {
+                                elmnt.innerHTML = "Page not found.";
+                            }
+                            /*remove the attribute, and call this function once more:*/
+                            elmnt.removeAttribute("w3-include-html");
+                            includeHTML();
+                        }
+                    }
+                    xhttp.open("GET", file, true);
+                    xhttp.send();
+                    /*exit the function:*/
+                    return;
+                }
+            }
+        };
+
         function posts_list() {
             $.ajax({
                 type: "GET",
@@ -116,7 +136,7 @@
                                         <div class="card" style="width: 18rem;">
                                             <img src="${img}" class="card-img-top" alt="..." weight="300" height="400">
                                             <div class="card-body">
-                                                <h5 class="card-title">${group_name}</h5>
+                                                <h5 class="card-title">${group_name}&nbsp<a href="/udongdong/delete?group_name=${group_name}">🗑</a></h5>
                                                 <p class="card-text">${group_name} 동아리입니다.</p>
                                                 <a href="/udongdong/view_content?group_name=${group_name}&img=${img}&address=${address}&content=${content}&id=${id}" class="btn btn-primary">소개글 보러가기</a>
                                             </div>
@@ -178,10 +198,11 @@
 </head>
 
 <body>
-<<<<<<< HEAD
-=======
+<div w3-include-html="header.html"></div>
+<script>
+    includeHTML();
+</script>
 
->>>>>>> e3eed63def5b3b378a6f44106316f64058336043
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">우동동</a>
@@ -209,9 +230,11 @@
                     <a class="nav-link" href="#">로그아웃</a>
                 </li>
                 <li class="nav-item right-tab">
-                    <!-- url 뒤에 붙는 계정 및 패스워드는 나중에 로그인한 계정값을 가져오도록 수정 -->
                     <a class="nav-link active" aria-current="page"
-                       href="/udongdong/write_page?id=wlstpgns51@naver.com&pwd=wls124578">글 작성</a>
+                       href="/udongdong/write_page?id={{ id }}&nickname={{ nickname }}">글 작성</a>
+                </li>
+                <li class="nav-item right-tab">
+                    <text class="nav-link"><span>{{ nickname }}</span> 님 반갑습니다!</text>
                 </li>
             </ul>
         </div>
@@ -225,82 +248,75 @@
 
 <div class="wrap">
     <div id="cards-box" class="row row-cols-1 row-cols-md-3 g-3">
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="https://res.cloudinary.com/linkareer/image/fetch/f_auto/https://s3.ap-northeast-2.amazonaws.com/media.linkareer.com/activity_manager/posters/2020-02-220216583113920_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg"
-                     class="card-img-top" alt="..." weight="300" height="400">
-                <div class="card-body">
-                    <h5 class="card-title">볼링 동아리 S.A.B</h5>
-                    <p class="card-text">볼링 동아리입니다.</p>
-                    <a href="/udongdong/view_content" class="btn btn-primary">소개글 보러가기</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="https://t1.daumcdn.net/cfile/tistory/9924D0335A276E401D" class="card-img-top" alt="..."
-                     weight="300" height="400">
-                <div class="card-body">
-                    <h5 class="card-title">포커스 클럽</h5>
-                    <p class="card-text">사진 동아리입니다.</p>
-                    <a href="/udongdong/view_content" class="btn btn-primary">소개글 보러가기</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="http://www.wngo.kr/imgdata/wngo_kr/201710/2017101758139715.jpg" class="card-img-top" alt="..."
-                     weight="300" height="400">
-                <div class="card-body">
-                    <h5 class="card-title">동네밤</h5>
-                    <p class="card-text">동호회 네트워크입니다.</p>
-                    <a href="/udongdong/view_content" class="btn btn-primary">소개글 보러가기</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="http://dn.joongdo.co.kr/mnt/images/file/2018y/10m/26d/2018102501002360100103811.jpg"
-                     class="card-img-top" alt="..." weight="300" height="400">
-                <div class="card-body">
-                    <h5 class="card-title">함께걷다</h5>
-                    <p class="card-text">산책 동아리입니다.</p>
-                    <a href="/udongdong/view_content" class="btn btn-primary">소개글 보러가기</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="https://bcc.bucheon.go.kr/site/inc/thumbnail/imgload?path=/board/753&filename=%EC%8A%A4%ED%85%9D%EC%97%85%20%EA%B0%95%EC%8A%B5%20%EB%AA%A8%EC%A7%91%286%EC%B0%A8%29.jpg"
-                     class="card-img-top" alt="..." weight="300" height="400">
-                <div class="card-body">
-                    <h5 class="card-title">스텝업</h5>
-                    <p class="card-text">댄스스포츠 동호회입니다.</p>
-                    <a href="/udongdong/view_content" class="btn btn-primary">소개글 보러가기</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="https://cdn.ngetnews.com/news/photo/202006/302119_13037_1558.jpg" class="card-img-top"
-                     alt="..." weight="300" height="400">
-                <div class="card-body">
-                    <h5 class="card-title">위댄스캠프</h5>
-                    <p class="card-text">춤 동호회 모임입니다. </p>
-                    <a href="/udongdong/view_content" class="btn btn-primary">소개글 보러가기</a>
-                </div>
-            </div>
-        </div>
+{#        <div class="col">#}
+{#            <div class="card" style="width: 18rem;">#}
+{#                <img src="https://res.cloudinary.com/linkareer/image/fetch/f_auto/https://s3.ap-northeast-2.amazonaws.com/media.linkareer.com/activity_manager/posters/2020-02-220216583113920_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg"#}
+{#                     class="card-img-top" weight="300" height="400">#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">볼링 동아리 S.A.B</h5>#}
+{#                    <p class="card-text">볼링 동아리입니다.</p>#}
+{#                    <a href="/udongdong/test_view_content?group_name=볼링 동아리 S.A.B&id={{ id }}" class="btn btn-primary">소개글 보러가기</a>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="col">#}
+{#            <div class="card" style="width: 18rem;">#}
+{#                <img src="https://t1.daumcdn.net/cfile/tistory/9924D0335A276E401D" class="card-img-top" alt="..."#}
+{#                     weight="300" height="400">#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">포커스 클럽</h5>#}
+{#                    <p class="card-text">사진 동아리입니다.</p>#}
+{#                    <a href="/udongdong/test_view_content?group_name=포커스 클럽&id={{ id }}" class="btn btn-primary">소개글 보러가기</a>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="col">#}
+{#            <div class="card" style="width: 18rem;">#}
+{#                <img src="http://www.wngo.kr/imgdata/wngo_kr/201710/2017101758139715.jpg" class="card-img-top" alt="..."#}
+{#                     weight="300" height="400">#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">동네밤</h5>#}
+{#                    <p class="card-text">동호회 네트워크입니다.</p>#}
+{#                    <a href="/udongdong/test_view_content?group_name=동네밤&id={{ id }}" class="btn btn-primary">소개글 보러가기</a>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="col">#}
+{#            <div class="card" style="width: 18rem;">#}
+{#                <img src="http://dn.joongdo.co.kr/mnt/images/file/2018y/10m/26d/2018102501002360100103811.jpg"#}
+{#                     class="card-img-top" alt="..." weight="300" height="400">#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">함께걷다</h5>#}
+{#                    <p class="card-text">산책 동아리입니다.</p>#}
+{#                    <a href="/udongdong/test_view_content?group_name=함께걷다&id={{ id }}" class="btn btn-primary">소개글 보러가기</a>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="col">#}
+{#            <div class="card" style="width: 18rem;">#}
+{#                <img src="https://bcc.bucheon.go.kr/site/inc/thumbnail/imgload?path=/board/753&filename=%EC%8A%A4%ED%85%9D%EC%97%85%20%EA%B0%95%EC%8A%B5%20%EB%AA%A8%EC%A7%91%286%EC%B0%A8%29.jpg"#}
+{#                     class="card-img-top" alt="..." weight="300" height="400">#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">스텝업</h5>#}
+{#                    <p class="card-text">댄스스포츠 동호회입니다.</p>#}
+{#                    <a href="/udongdong/test_view_content?group_name=스텝업&id={{ id }}" class="btn btn-primary">소개글 보러가기</a>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="col">#}
+{#            <div class="card" style="width: 18rem;">#}
+{#                <img src="https://cdn.ngetnews.com/news/photo/202006/302119_13037_1558.jpg" class="card-img-top"#}
+{#                     alt="..." weight="300" height="400">#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">위댄스캠프</h5>#}
+{#                    <p class="card-text">춤 동호회 모임입니다. </p>#}
+{#                    <a href="/udongdong/test_view_content?group_name=위댄스캠프&id={{ id }}" class="btn btn-primary">소개글 보러가기</a>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
     </div>
-<<<<<<< HEAD
-    <<<<<<< HEAD
 </div>
-=======
-=======
->>>>>>> e3eed63def5b3b378a6f44106316f64058336043
-
 </div>
-
+<div id="footer"></div>
 </body>
-
 </html>
