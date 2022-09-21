@@ -13,69 +13,17 @@ from pymongo import MongoClient
 client = MongoClient('mongodb+srv://test:sparta@cluster0.wtjymgq.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.dbsparta
 
-<<<<<<< HEAD
-# posts = list(db.post_content.find({}, {'_id': False}))
-# for p in posts:
-#     print(p)
-=======
-# name = '산'
-# post = db.post_content.find({'group_name':'/.*'+"산"+'.*/'})
-#
-# p_name = [p['group_name'] for p in post]
-#
-# print(p_name)
-
-# test_user = {
-#     'id':'sehun@naver.com',
-#     'pw':'wls1234',
-#     'nick':'세휸'
-# }
-#
-# db.user.insert_one(test_user)
-
-# one_post = db.post_content.find_one({'group_name': "산악사랑"})
-# print(one_post['group_name'])
->>>>>>> faae709851a3139ea465a42f3cbcc03ce49a0676
-
 # JWT 토큰을 만들 때 필요한 비밀문자열입니다. 아무거나 입력해도 괜찮습니다.
 # 이 문자열은 서버만 알고있기 때문에, 내 서버에서만 토큰을 인코딩(=만들기)/디코딩(=풀기) 할 수 있습니다.
 SECRET_KEY = 'TEAM'
 
-<<<<<<< HEAD
-
 @app.route('/')
 def home():
-    return render_template('login.html')
-=======
-# JWT 토큰을 만들 때 필요한 비밀문자열입니다. 아무거나 입력해도 괜찮습니다.
-# 이 문자열은 서버만 알고있기 때문에, 내 서버에서만 토큰을 인코딩(=만들기)/디코딩(=풀기) 할 수 있습니다.
-SECRET_KEY = 'TEAM'
-
-# member_doc = {'id':'wlstpgns51@naver.com', 'pwd':'wls124578' }
-# db.member.insert_one(member_doc)
-# member = list(db.member.find({},{'_id':False}))
-# print(member)
-
-# post_doc = {
-#     'img':'https://cmsphoto.ww-cdn.com/superstatic/1788037/art/default/31394272-29615629.jpg?v=1551977422',
-#     'group_name':'산악사랑',
-#     'address':'서울특별시 강서구 마곡동',
-#     'content':'산악을 좋아하는 사람들의 모임입니다.',
-#     'id':'wlstpgns51@naver.com',
-#     'pwd':'wls124578'
-# }
-# db.post_content.insert_one(post_doc)
-# post_content = list(db.post_content.find({},{'_id':False}))
-# print(post_content)
-
-@app.route('/')
-def home():
->>>>>>> faae709851a3139ea465a42f3cbcc03ce49a0676
+    return render_template("login.html")
 
 
 @app.route('/MainPage')
 def main_page():
-<<<<<<< HEAD
     # nickname = request.args.get('nickname')
     # id = request.args.get('id')
 
@@ -83,26 +31,16 @@ def main_page():
 
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        print(payload['id'])
+        # print(payload['id'])
 
-        user = db.user.find_one({'id':payload['id']})
+        user = db.user.find_one({'id': payload['id']})
 
         return render_template('MainPage.html', id=payload['id'], nickname=user['nick'])
     except jwt.ExpiredSignatureError:
         return redirect("http://localhost:5000/")
     except jwt.exceptions.DecodeError:
         return redirect("http://localhost:5000/")
-=======
-    return render_template('MainPage.html')
->>>>>>> faae709851a3139ea465a42f3cbcc03ce49a0676
 
-
-<<<<<<< HEAD
-=======
-    return resp
-    return render_template('MainPage.html')
-
->>>>>>> faae709851a3139ea465a42f3cbcc03ce49a0676
 
 @app.route('/udongdong/posts', methods=["GET"])
 def posts_list():
@@ -169,10 +107,11 @@ def write_content():
 
     return jsonify({'msg': msg})
 
+
 @app.route("/udongdong/delete")
 def delete_content():
     group_name = request.args.get('group_name')
-    db.post_content.delete_one({'group_name':group_name})
+    db.post_content.delete_one({'group_name': group_name})
 
     return render_template('MainPage.html')
 
@@ -281,11 +220,6 @@ def api_login():
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
-        # user_info = {
-        #     'id': result['id'],
-        #     'nick': result['nick']
-        # }
-
         # token을 줍니다.
         return jsonify({'result': 'success', 'token': token})
     # 찾지 못하면
@@ -293,11 +227,5 @@ def api_login():
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
 
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> faae709851a3139ea465a42f3cbcc03ce49a0676
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
+    app.run('0.0.0.0', port=5001, debug=True)

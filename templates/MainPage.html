@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-
+    {% extends "header.html" %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -12,314 +12,159 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
 
-    <title>MainPage</title>
+    <title>{% block title %}MainPage{% endblock %}</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 
-    <style>
-        * {
-            font-family: 'Gowun Dodum', sans-serif;
-        }
-
-        .mytitle {
-
-            width: 100%;
-            height: 350px;
-
-            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://www.seouledu.or.kr/images/contents/business03_imgTitleBox.jpg");
-            background-position: center;
-            background-size: cover;
-
-            color: white;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        h1.relative {
-            position: relative;
-            left: 130px;
-        }
-
-        h6.relative {
-            position: relative;
-            left: 130px;
-        }
-
-        .wrap {
-            max-width: 1200px;
-            width: 95%;
-            margin: 20px auto 0px auto;
-        }
-<<<<<<< HEAD
-=======
-
-    .wrap {
-      max-width: 1200px;
-      width: 95%;
-      margin: 20px auto 100px auto;
-    }
->>>>>>> faae709851a3139ea465a42f3cbcc03ce49a0676
-
-        .navbar-nav {
-            width: 100%;
-            display: inline-block;
-        }
-
-        .left-tab {
-            float: left;
-            display: inline-block;
-        }
-
-        .right-tab {
-            float: right;
-            display: inline-block;
-        }
-
-        .search_wrap {
-            width: 400px;
-
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-        }
-
-    </style>
-
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
-            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#footer").load("footer.html")
-            /* id 지정을 통해서도 가능합니다.
-             $("#header").load("header.html #navbar")
-             */
-        });
-    </script>
-
-    <script>
-        function includeHTML() {
-            var z, i, elmnt, file, xhttp;
-            /* 모든 HTML 요소 컬렉션을 통해 루프 */
-            z = document.getElementsByTagName("*");
-            for (i = 0; i < z.length; i++) {
-                elmnt = z[i];
-                /*특정 속성을 가진 요소 검색*/
-                file = elmnt.getAttribute("w3-include-html");
-                if (file) {
-                    /* 속성 값을 파일 이름으로 사용하여 HTTP 요청 만들기 */
-                    xhttp = new XMLHttpRequest();
-                    xhttp.onreadystatechange = function () {
-                        if (this.readyState == 4) {
-                            if (this.status == 200) {
-                                elmnt.innerHTML = this.responseText;
-                            }
-                            if (this.status == 404) {
-                                elmnt.innerHTML = "Page not found.";
-                            }
-                            /* 속성을 제거하고 이 함수를 한 번 더 호출합니다. */
-                            elmnt.removeAttribute("w3-include-html");
-                            includeHTML();
-                        }
-                    }
-                    xhttp.open("GET", file, true);
-                    xhttp.send();
-
-                    return;
-                }
+    {% block head %}
+        {{ super() }}
+        <style>
+            * {
+                font-family: 'Gowun Dodum', sans-serif;
             }
-        }
 
-        $(document).ready(function () {
-            posts_list();
-        })
+            .mytitle {
 
+                width: 100%;
+                height: 350px;
 
-        function includeHTML() {
-            var z, i, elmnt, file, xhttp;
-            /*loop through a collection of all HTML elements:*/
-            z = document.getElementsByTagName("*");
-            for (i = 0; i < z.length; i++) {
-                elmnt = z[i];
-                /*search for elements with a certain atrribute:*/
-                file = elmnt.getAttribute("w3-include-html");
-                if (file) {
-                    /*make an HTTP request using the attribute value as the file name:*/
-                    xhttp = new XMLHttpRequest();
-                    xhttp.onreadystatechange = function () {
-                        if (this.readyState == 4) {
-                            if (this.status == 200) {
-                                elmnt.innerHTML = this.responseText;
-                            }
-                            if (this.status == 404) {
-                                elmnt.innerHTML = "Page not found.";
-                            }
-                            /*remove the attribute, and call this function once more:*/
-                            elmnt.removeAttribute("w3-include-html");
-                            includeHTML();
-                        }
-                    }
-                    xhttp.open("GET", file, true);
-                    xhttp.send();
-                    /*exit the function:*/
-                    return;
-                }
+                background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://www.seouledu.or.kr/images/contents/business03_imgTitleBox.jpg");
+                background-position: center;
+                background-size: cover;
+
+                color: white;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
             }
-        };
 
-        function posts_list() {
-            $.ajax({
-                type: "GET",
-                url: "/udongdong/posts",
-                data: {},
-                success: function (response) {
-                    let posts_list = response['posts_list'];
-                    let temp_html = ``
+            h1.relative {
+                position: relative;
+                left: 130px;
+            }
 
-                    for (let i = 0; i < posts_list.length; i++) {
-                        let img = posts_list[i]['img'];
-                        let group_name = posts_list[i]['group_name'];
-                        let address = posts_list[i]['address'];
-                        let content = posts_list[i]['content'];
-                        let id = posts_list[i]['id']
+            h6.relative {
+                position: relative;
+                left: 130px;
+            }
 
-                        temp_html = `<div class="col">
-                                        <div class="card" style="width: 18rem;">
-                                            <img src="${img}" class="card-img-top" alt="..." weight="300" height="400">
-                                            <div class="card-body">
-                                                <h5 class="card-title">${group_name}&nbsp<a href="/udongdong/delete?group_name=${group_name}">🗑</a></h5>
-                                                <p class="card-text">${group_name} 동아리입니다.</p>
-                                                <a href="/udongdong/view_content?group_name=${group_name}&img=${img}&address=${address}&content=${content}&id=${id}" class="btn btn-primary">소개글 보러가기</a>
-                                            </div>
-                                        </div>
-                                    </div>`;
+            .wrap {
+                max-width: 1200px;
+                width: 95%;
+                margin: 20px auto 0px auto;
+            }
 
-                        $('#cards-box').append(temp_html);
+            .navbar-nav {
+                width: 100%;
+                display: inline-block;
+            }
+
+            .left-tab {
+                float: left;
+                display: inline-block;
+            }
+
+            .right-tab {
+                float: right;
+                display: inline-block;
+            }
+
+            .search_wrap {
+                width: 400px;
+
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+            }
+
+        </style>
+
+        <script>
+            $(document).ready(function () {
+                posts_list();
+            })
+
+            function includeHTML() {
+                var z, i, elmnt, file, xhttp;
+                /* 모든 HTML 요소 컬렉션을 통해 루프 */
+                z = document.getElementsByTagName("*");
+                for (i = 0; i < z.length; i++) {
+                    elmnt = z[i];
+                    /*특정 속성을 가진 요소 검색*/
+                    file = elmnt.getAttribute("w3-include-html");
+                    if (file) {
+                        /* 속성 값을 파일 이름으로 사용하여 HTTP 요청 만들기 */
+                        xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function () {
+                            if (this.readyState == 4) {
+                                if (this.status == 200) {
+                                    elmnt.innerHTML = this.responseText;
+                                }
+                                if (this.status == 404) {
+                                    elmnt.innerHTML = "Page not found.";
+                                }
+                                /* 속성을 제거하고 이 함수를 한 번 더 호출합니다. */
+                                elmnt.removeAttribute("w3-include-html");
+                                includeHTML();
+                            }
+                        }
+                        xhttp.open("GET", file, true);
+                        xhttp.send();
+
+                        return;
+                    }
+                }
+
+            }
+
+            function posts_list() {
+                $.ajax({
+                    type: "GET",
+                    url: "/udongdong/posts",
+                    data: {},
+                    success: function (response) {
+                        let posts_list = response['posts_list'];
+                        let temp_html = ``
+
+                        for (let i = 0; i < posts_list.length; i++) {
+                            let img = posts_list[i]['img'];
+                            let group_name = posts_list[i]['group_name'];
+                            let address = posts_list[i]['address'];
+                            let content = posts_list[i]['content'];
+                            let id = posts_list[i]['id']
+
+                            temp_html = `<div class="col">
+                                                <div class="card" style="width: 18rem;">
+                                                    <img src="${img}" class="card-img-top" alt="..." weight="300" height="400">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">${group_name}&nbsp<a href="/udongdong/delete?group_name=${group_name}">🗑</a></h5>
+                                                        <p class="card-text">${group_name} 동아리입니다.</p>
+                                                        <a href="/udongdong/view_content?group_name=${group_name}&img=${img}&address=${address}&content=${content}&id=${id}" class="btn btn-primary">소개글 보러가기</a>
+                                                    </div>
+                                                </div>
+                                            </div>`;
+
+                            $('#cards-box').append(temp_html);
+
+                        }
 
                     }
+                })
+            }
 
-                }
-            })
-        }
-
-
-        function search_group() {
-            let group_name = $('#search-input').val();
-            //alert(group_name)
-
-            $.ajax({
-                type: "POST",
-                url: "/udongdong/one_post",
-                data: {
-                    group_name: group_name
-                },
-                success: function (one_post) {
-                    let post = one_post['one_post']
-                    console.log(post)
-
-                    if (post == null) {
-                        alert("등록되지 않은 동호회입니다.");
-                    } else if (post != null) {
-                        $('#cards-box').empty();
-
-                        let img = post['img']
-                        let group_name = post['group_name']
-                        let address = post['address']
-                        let content = post['content']
-                        let id = post['id']
-
-                        let temp_html = `<div class="col">
-                                             <div class="card" style="width: 18rem;">
-                                                 <img src="${img}" class="card-img-top" alt="..." weight="300" height="400">
-                                                 <div class="card-body">
-                                                   <h5 class="card-title">${group_name}</h5>
-                                                   <p class="card-text">${group_name} 동아리입니다.</p>
-                                                   <a href="/udongdong/view_content?group_name=${group_name}&img=${img}&address=${address}&content=${content}&id=${id}" class="btn btn-primary">소개글 보러가기</a>
-                                                 </div>
-                                              </div>
-                                         </div>`;
-
-                        $('#cards-box').append(temp_html);
-
-                    }
-                }
-            })
-        }
-
-    </script>
+        </script>
+    {% endblock %}
 </head>
 
 <body>
-<<<<<<< HEAD
-<div w3-include-html="header.html"></div>
-<script>
-    includeHTML();
-</script>
-=======
->>>>>>> faae709851a3139ea465a42f3cbcc03ce49a0676
+{% block content %}
+    <div class="wrap">
+        <div id="cards-box" class="row row-cols-1 row-cols-md-3 g-3">
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">우동동</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="true" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="justify-content: space-between">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item left-tab">
-                    <div class="search_wrap" id="search_wrap">
-                        <input class="form-control me-2" id="search-input" type="text" placeholder="동호회를 검색해보세요!"
-                               aria-label="Search" style="float: left;">
-                        <button class="btn btn-outline-success" class="search_btn" onclick="search_group()"
-                                style="float: right; width: 70px">검색
-                        </button>
-                    </div>
-                </li>
-            </ul>
-
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item right-tab">
-                    <a class="nav-link" href="#">로그아웃</a>
-                </li>
-                <li class="nav-item right-tab">
-                    <a class="nav-link active" aria-current="page"
-                       href="/udongdong/write_page?id={{ id }}&nickname={{ nickname }}">글 작성</a>
-                </li>
-                <li class="nav-item right-tab">
-                    <text class="nav-link"><span>{{ nickname }}</span> 님 반갑습니다!</text>
-                </li>
-            </ul>
         </div>
     </div>
-</nav>
+{% endblock %}
 
-<div class="mytitle">
-    <h1 class="relative">우동동</h1>
-    <h6 class="relative">우리 동네 동호회</h6>
-</div>
-
-<div class="wrap">
-    <div id="cards-box" class="row row-cols-1 row-cols-md-3 g-3">
-
-    </div>
-</div>
-<<<<<<< HEAD
-</div>
-<div id="footer"></div>
-=======
-
-<div w3-include-html="footer.html"></div>
-
-<script>
-    window.addEventListener('DOMContentLoaded',()=> {
-        includeHTML();
-    });
-</script>
-
->>>>>>> faae709851a3139ea465a42f3cbcc03ce49a0676
 </body>
 </html>

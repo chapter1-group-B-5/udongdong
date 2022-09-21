@@ -2,9 +2,9 @@
 <html lang="en">
 
 <head>
+    {% extends "header.html" %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -15,7 +15,8 @@
     <title>글 열람 페이지</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
-
+    {% block head %}
+        {{ super() }}
     <style>
         * {
             font-family: 'Gowun Dodum', sans-serif;
@@ -87,51 +88,12 @@
             alert("댓글 등록 준비중!")
         }
     </script>
-
+    {% endblock %}
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">우동동</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="true" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="justify-content: space-between">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item left-tab">
-                    <form class="d-flex">
-                        <input class="form-control me-2" id="search-input" type="search" placeholder="동호회를 검색해보세요!"
-                               aria-label="Search" style="width:400px; height:40px;">
-                        <button class="btn btn-outline-success" id="search" type="submit"
-                                style="width:60px; height:40px;">검색
-                        </button>
-                    </form>
-                </li>
-            </ul>
-
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item right-tab">
-                    <a class="nav-link" href="#">로그아웃</a>
-                </li>
-                <li class="nav-item right-tab">
-                    <!-- url 뒤에 붙는 계정 및 패스워드는 나중에 로그인한 계정값을 가져오도록 수정 -->
-                    <a class="nav-link active" aria-current="page"
-                       href="/udongdong/write_page?id=wlstpgns51@naver.com&pwd=wls124578">글 작성</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<div class="header_image">
-    <h1 class="relative">우동동</h1>
-    <h6 class="relative">우리 동네 동호회</h6>
-</div>
-
+{% block content %}
 <div class="row row-cols-1 row-cols-md-1 g-4">
     <div class="post_box">
         <div class="mb-3">
@@ -146,7 +108,8 @@
                 <img src="{{ img }}" class="card-img-top" weight="200" height="800">
             </div>
             <hr>
-            <div class="content-form-control" id="write_content" rows="3" style="white-space: pre-line; width:100%; height:600px; overflow-y:hidden" >{{ content }}</div>
+            <div class="content-form-control" id="write_content" rows="3"
+                 style="white-space: pre-line; width:100%; height:600px; overflow-y:hidden">{{ content }}</div>
         </div>
         <hr>
         <div class="input-group mb-3">
@@ -157,6 +120,7 @@
         </div>
     </div>
 </div>
-</body>
+{% endblock %}
 
+</body>
 </html>
