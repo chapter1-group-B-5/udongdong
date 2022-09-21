@@ -3,108 +3,119 @@
 
 <head>
     {% block head %}
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+              crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+                crossorigin="anonymous"></script>
+        <script src=" https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
-    <title>{% block title %}{%endblock%}</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+        <span id="title"><title>{% block title %}{% endblock %}</title></span>
 
-    <style>
-        * {
-            font-family: 'Gowun Dodum', sans-serif;
-        }
+        <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 
-        .mytitle {
+        <style>
+            * {
+                font-family: 'Gowun Dodum', sans-serif;
+            }
 
-            width: 100%;
-            height: 350px;
+            .mytitle {
 
-            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://www.seouledu.or.kr/images/contents/business03_imgTitleBox.jpg");
-            background-position: center;
-            background-size: cover;
+                width: 100%;
+                height: 350px;
 
-            color: white;
+                background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://www.seouledu.or.kr/images/contents/business03_imgTitleBox.jpg");
+                background-position: center;
+                background-size: cover;
 
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+                color: white;
 
-        h1.relative {
-            position: relative;
-            left: 130px;
-        }
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
 
-        h6.relative {
-            position: relative;
-            left: 130px;
-        }
+            h1.relative {
+                position: relative;
+                left: 130px;
+            }
 
-        .wrap {
-            max-width: 1200px;
-            width: 95%;
-            margin: 20px auto 0px auto;
-        }
+            h6.relative {
+                position: relative;
+                left: 130px;
+            }
 
-        .navbar-nav {
-            width: 100%;
-            display: inline-block;
-        }
+            .wrap {
+                max-width: 1200px;
+                width: 95%;
+                margin: 20px auto 0px auto;
+            }
 
-        .left-tab {
-            float: left;
-            display: inline-block;
-        }
+            .navbar-nav {
+                width: 100%;
+                display: inline-block;
+            }
 
-        .right-tab {
-            float: right;
-            display: inline-block;
-        }
+            .left-tab {
+                float: left;
+                display: inline-block;
+            }
 
-        .search_wrap {
-            width: 400px;
+            .right-tab {
+                float: right;
+                display: inline-block;
+            }
 
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-        }
+            .search_wrap {
+                width: 400px;
 
-    </style>
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+            }
 
-    <script>
-        function search_group() {
-            let group_name = $('#search-input').val();
-            //alert(group_name)
+        </style>
 
-            $.ajax({
-                type: "POST",
-                url: "/udongdong/one_post",
-                data: {
-                    group_name: group_name
-                },
-                success: function (one_post) {
-                    let post = one_post['one_post']
-                    console.log(post)
+        <script>
+            $(document).ready(function(){
+                let title = document.title;
 
-                    if (post == null) {
-                        alert("등록되지 않은 동호회입니다.");
-                    } else if (post != null) {
-                        $('#cards-box').empty();
+                if (title != "메인 페이지"){
+                    $('#search_wrap').hide();
+                }
+            })
 
-                        let img = post['img']
-                        let group_name = post['group_name']
-                        let address = post['address']
-                        let content = post['content']
-                        let id = post['id']
+            function search_group() {
+                let group_name = $('#search-input').val();
+                //alert(group_name)
 
-                        let temp_html = `<div class="col">
+                $.ajax({
+                    type: "POST",
+                    url: "/udongdong/one_post",
+                    data: {
+                        group_name: group_name
+                    },
+                    success: function (one_post) {
+                        let post = one_post['one_post']
+                        console.log(post)
+
+                        if (post == null) {
+                            alert("등록되지 않은 동호회입니다.");
+                        } else if (post != null) {
+                            $('#cards-box').empty();
+
+                            let img = post['img']
+                            let group_name = post['group_name']
+                            let address = post['address']
+                            let content = post['content']
+                            let id = post['id']
+
+                            let temp_html = `<div class="col">
                                              <div class="card" style="width: 18rem;">
                                                  <img src="${img}" class="card-img-top" alt="..." weight="300" height="400">
                                                  <div class="card-body">
@@ -115,20 +126,26 @@
                                               </div>
                                          </div>`;
 
-                        $('#cards-box').append(temp_html);
+                            $('#cards-box').append(temp_html);
 
+                        }
                     }
-                }
-            })
-        }
-    </script>
+                })
+            }
+
+            function sign_out() {
+                $.removeCookie('mytoken');
+                alert('로그아웃!')
+                window.location.href = "/login"
+            }
+        </script>
     {% endblock %}
 </head>
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">우동동</a>
+        <a class="navbar-brand" href="/MainPage">우동동</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                 aria-expanded="true" aria-label="Toggle navigation">
@@ -140,11 +157,11 @@
                 <li class="nav-item left-tab">
                     <div class="search_wrap" id="search_wrap">
 
-                            <input class="form-control me-2" id="search-input" type="text" placeholder="동호회를 검색해보세요!"
-                                   aria-label="Search" style="float: left;">
-                            <button class="btn btn-outline-success" class="search_btn" onclick="search_group()"
-                                    style="float: right; width: 70px">검색
-                            </button>
+                        <input class="form-control me-2" id="search-input" type="text" placeholder="동호회를 검색해보세요!"
+                               aria-label="Search" style="float: left;">
+                        <button class="btn btn-outline-success" class="search_btn" onclick="search_group()"
+                                style="float: right; width: 70px">검색
+                        </button>
 
                     </div>
                 </li>
@@ -152,7 +169,7 @@
 
             <ul class="navbar-nav me-auto">
                 <li class="nav-item right-tab">
-                    <a class="nav-link" href="#">로그아웃</a>
+                    <a class="nav-link" onclick="sign_out()">로그아웃</a>
                 </li>
                 <li class="nav-item right-tab">
                     <a class="nav-link active" aria-current="page"
@@ -170,6 +187,6 @@
     <h1 class="relative">우동동</h1>
     <h6 class="relative">우리 동네 동호회</h6>
 </div>
-    <div id="contents">{% block content %}{% endblock %}</div>
+<div id="contents">{% block content %}{% endblock %}</div>
 </body>
 </html>
