@@ -52,6 +52,15 @@
             width: 95%;
             margin: 20px auto 0px auto;
         }
+<<<<<<< HEAD
+=======
+
+    .wrap {
+      max-width: 1200px;
+      width: 95%;
+      margin: 20px auto 100px auto;
+    }
+>>>>>>> faae709851a3139ea465a42f3cbcc03ce49a0676
 
         .navbar-nav {
             width: 100%;
@@ -78,7 +87,50 @@
 
     </style>
 
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#footer").load("footer.html")
+            /* id 지정을 통해서도 가능합니다.
+             $("#header").load("header.html #navbar")
+             */
+        });
+    </script>
+
     <script>
+        function includeHTML() {
+            var z, i, elmnt, file, xhttp;
+            /* 모든 HTML 요소 컬렉션을 통해 루프 */
+            z = document.getElementsByTagName("*");
+            for (i = 0; i < z.length; i++) {
+                elmnt = z[i];
+                /*특정 속성을 가진 요소 검색*/
+                file = elmnt.getAttribute("w3-include-html");
+                if (file) {
+                    /* 속성 값을 파일 이름으로 사용하여 HTTP 요청 만들기 */
+                    xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4) {
+                            if (this.status == 200) {
+                                elmnt.innerHTML = this.responseText;
+                            }
+                            if (this.status == 404) {
+                                elmnt.innerHTML = "Page not found.";
+                            }
+                            /* 속성을 제거하고 이 함수를 한 번 더 호출합니다. */
+                            elmnt.removeAttribute("w3-include-html");
+                            includeHTML();
+                        }
+                    }
+                    xhttp.open("GET", file, true);
+                    xhttp.send();
+
+                    return;
+                }
+            }
+        }
+
         $(document).ready(function () {
             posts_list();
         })
@@ -194,14 +246,18 @@
                 }
             })
         }
+
     </script>
 </head>
 
 <body>
+<<<<<<< HEAD
 <div w3-include-html="header.html"></div>
 <script>
     includeHTML();
 </script>
+=======
+>>>>>>> faae709851a3139ea465a42f3cbcc03ce49a0676
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
@@ -251,7 +307,19 @@
 
     </div>
 </div>
+<<<<<<< HEAD
 </div>
 <div id="footer"></div>
+=======
+
+<div w3-include-html="footer.html"></div>
+
+<script>
+    window.addEventListener('DOMContentLoaded',()=> {
+        includeHTML();
+    });
+</script>
+
+>>>>>>> faae709851a3139ea465a42f3cbcc03ce49a0676
 </body>
 </html>
