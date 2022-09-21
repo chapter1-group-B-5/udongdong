@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, render_template, request, jsonify, make_response
+from flask import Flask, render_template, request, jsonify, make_response, redirect
 
 app = Flask(__name__)
 
@@ -29,10 +29,23 @@ def home():
 
 @app.route('/MainPage')
 def main_page():
-    nickname = request.args.get('nickname')
-    id = request.args.get('id')
+    # nickname = request.args.get('nickname')
+    # id = request.args.get('id')
 
-    return render_template('MainPage.html', nickname=nickname, id=id)
+    token_receive = request.cookies.get('mytoken')
+
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        print(payload['id'])
+
+        user = db.user.find_one({'id':payload['id']})
+
+        return render_template('MainPage.html', id=payload['id'], nickname=user['nick'])
+    except jwt.ExpiredSignatureError:
+        return redirect("http://localhost:5000/")
+    except jwt.exceptions.DecodeError:
+        return redirect("http://localhost:5000/")
+
 
 
 @app.route('/udongdong/posts', methods=["GET"])
@@ -212,13 +225,13 @@ def api_login():
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
-        user_info = {
-            'id': result['id'],
-            'nick': result['nick']
-        }
+        # user_info = {
+        #     'id': result['id'],
+        #     'nick': result['nick']
+        # }
 
         # token을 줍니다.
-        return jsonify({'result': 'success', 'token': token, 'user_info': user_info})
+        return jsonify({'result': 'success', 'token': token})
     # 찾지 못하면
     else:
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})

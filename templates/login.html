@@ -47,10 +47,10 @@
                             timer: 1000
                         })
                         setTimeout(function(){
-                            let id = response['user_info']['id']
-                            let nick = response['user_info']['nick']
+                            {#let id = response['user_info']['id']#}
+                            {#let nick = response['user_info']['nick']#}
 
-                            window.location.href = '/MainPage?nickname='+nick+'&id='+id;
+                            window.location.replace("/MainPage")
                         }, 1000)
 
                     } else {
