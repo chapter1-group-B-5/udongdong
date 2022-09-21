@@ -19,8 +19,7 @@ SECRET_KEY = 'TEAM'
 
 @app.route('/')
 def home():
-    return render_template("login.html")
-
+    return render_template('login.html')
 
 @app.route('/MainPage')
 def main_page():
@@ -55,7 +54,6 @@ def one_post():
     print(group_name)
 
     post = db.post_content.find_one({'group_name': group_name})
-
     print(post)
 
     if post is None:
@@ -69,7 +67,7 @@ def one_post():
             'id': post['id'],
         }
 
-    print(one_post)
+        print(one_post)
 
     return jsonify({'one_post': one_post})
 
